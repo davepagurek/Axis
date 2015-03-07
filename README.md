@@ -6,5 +6,6 @@ Run the following commands:
 
 ```
 npm install
+npm install bower -g
 bower install paper
 ```

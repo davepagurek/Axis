@@ -10,7 +10,7 @@
 html, body {
 	height: 100%;
 }
-p{
+p, li{
 	cursor:default;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
@@ -32,7 +32,7 @@ ul{
 	margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
 }
 .footer, .push {
-	height: 180px; /* .push must be the same height as .footer */
+	height: 200px; /* .push must be the same height as .footer */
 	width: 100vw;
 	background-color: #E5E5E5;
 }
@@ -46,9 +46,14 @@ ul{
 	background-color: white;
 }
 #element_list{
+	vertical-align: top;
+	display: inline-block;
 	background-color: #D6D6D6;
 	width: 200px;
 	height: 165px;
+}
+#table_list{
+	display: inline-block;
 }
 #darkpart{
 	display: inline-block;
@@ -68,4 +73,19 @@ ul{
 	height: 15px;
 	background-color: #D6D6D6;
 	box-shadow: 0 1px 0 #888888;
+}
+table{
+	vertical-align: top;
+	border-collapse: separate;
+	margin-top: 2px;
+}
+td{
+	width: 10px;
+	border-color: black;
+	border: 1px solid black;
+	background-color: white;
+}
+#frame{
+	width: 7px;
+	height: 20px;
 }

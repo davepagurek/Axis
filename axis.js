@@ -275,7 +275,16 @@ window.axis = (function() {
             requestAnimationFrame(nextFrame);
         } else {
             axis.frame = 0;
+            $('.frame_list').each(function(){
+                $(".frame").each(function(){
+                    $(this).removeClass("selected");
+                    if ($(this).attr("id") == axis.frame){
+                        $(this).addClass("selected");
+                    }
+                });
+            });
             pop.population.forEach(function(element) {
+                //console.log(axis.getLocation(element.frames, axis.frame));
                 axis.clear(element);
                 axis.create(element, axis.frame);
             });

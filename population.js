@@ -95,11 +95,9 @@ var addStickman = function(obj) {
     return newStickman;
 }
 
-// population.push(stickman);
+population.push(stickman);
 
-population.push(addStickman(stickman));
-
-// addStickman(stickman.location, stickman.name);
+// population.push(addStickman(stickman));
 
 population.forEach(function(element) {
     toPaper(element);

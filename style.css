@@ -26,12 +26,7 @@ ul{
     font-size: 0.75em;
     display: table-cell;   
 }
-.wrapper {
-    min-height: 100%;
-    height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
-    height: 100%;
-    margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
-}
+
 
 
 
@@ -85,16 +80,26 @@ button:focus {
     left:0;
     right:0;
     height:40px;
+    background-color:#AAA;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    padding:0;
+}
+
+#filebar .wrapper {
+    display:inline-block;
+    margin-right:8px;
+}
+
+#filebar #dark {
     background-color:#666;
-    padding:8px;
 }
 
 #filebar img {
     height:100%;
     width:auto;
-    margin-right:8px;
     display:inline-block;
     vertical-align:middle;
+    padding:4px;
 }
 
 
@@ -117,6 +122,7 @@ button:focus {
     height: 420px;
     width: 720px;
     background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 
@@ -131,6 +137,7 @@ button:focus {
     bottom:40px;
     left:0;
     right:0;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.3);
 }
 #element_list{
     vertical-align: top;

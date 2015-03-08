@@ -9,6 +9,7 @@ window.axis = (function() {
         } else {
             var prev = 0;
             var next = Number.MAX_VALUE;
+            alert(JSON.stringify(frames));
             //finds the previous keyframe + next keyframe
             for (var frame in frames){
                 if (parseInt(frame, 10) > prev && parseInt(frame, 10) < currentFrame){
@@ -25,6 +26,8 @@ window.axis = (function() {
             //else, perform linear interpolation and calculate the x,y depending on the frame progress between prev and next frames
             else{
                 var ratio = currentFrame/(next - prev);
+                alert(JSON.stringify(frames));
+                // alert(JSON.stringify(frames[next]));
                 return new Point(frames[prev].x + ratio*(frames[next].x-frames[prev].x), frames[prev].y + ratio*(frames[next].y-frames[prev].y));
             }
         }
@@ -73,11 +76,11 @@ window.axis = (function() {
     };
 
     //Recursively erase paths
-    var clear = function(element) {
+    axis.clear = function(element) {
         if (element.path) element.path.remove();
         if (element.points) {
             element.points.forEach(function(point) {
-                clear(point);
+                axis.clear(point);
             });
         }
     };
@@ -170,7 +173,7 @@ window.axis = (function() {
                     console.log(element.frames[frame]);
 
                     //Redraw
-                    clear(root);
+                    axis.clear(root);
                     axis.create(root, frame);
                     showJoints(root);
                 }
@@ -190,14 +193,14 @@ window.axis = (function() {
         }
 
     //create a new Frame
-    axis.createNewFrame = function(element, frame){
+    axis.createNewFrame = function(element, curFrame, newFrame){
         frame = frame || 0;
 
-        element.frames[frame] = element.location; 
+        element.frames[newFrame] = element.frames[curFrame]; 
 
         if (element.points){
             element.points.forEach(function(point){
-                axis.createNewFrame(point, frame)
+                axis.createNewFrame(point, curFrame, newFrame);
             });
         }
     };

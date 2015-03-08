@@ -125,8 +125,13 @@ window.setFrame = function(){
 }
 
 window.createFrame = function(){
-    curFrame = document.getElementById("Frame").value;
+    newFrame = document.getElementById("Frame").value;
     population.forEach(function(element) {
-        axis.createNewFrame(element, curFrame);
+        axis.clear(element);
+        axis.create(element, newFrame);
+    });
+    console.log(newFrame);
+    population.forEach(function(element) {
+        axis.createNewFrame(element, curFrame, newFrame);
     });
 }

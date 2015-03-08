@@ -1,7 +1,9 @@
 window.axis = (function() {
     var axis = {};
 
-    axis.getLocation = function(frames, currentFrame) {
+    axis.frame = 0;
+
+    var getLocation = function(frames, currentFrame) {
         if (!frames) return new Point(0, 0);
         //if frame exists, return it
         if (frames[currentFrame]) {
@@ -30,6 +32,10 @@ window.axis = (function() {
         }
     };
 
+    axis.getLocation = function(frames,currentFrame){
+        return getLocation(frames, currentFrame);
+    };
+
     //Recursively draw jointsagain so that they end up in front of lines
     var showJoints = function(element) {
         if (element.points) {
@@ -44,7 +50,7 @@ window.axis = (function() {
     };
 
     var createPath = function(element, start, frame) {
-        var end = axis.getLocation(element.frames, frame);
+        var end = getLocation(element.frames, frame);
 
         //Use Paper.js to draw the shape
         if (element.type == "line") {
@@ -87,7 +93,7 @@ window.axis = (function() {
         start = start || new Point(0,0);
 
         //Find the end location of the joint for the current element
-        var end = axis.getLocation(element.frames, frame);
+        var end = getLocation(element.frames, frame);
 
         //If we had to create the clickable joint for the first time or if it's just being redrawn
         var madeNewJoint = false;
@@ -162,14 +168,14 @@ window.axis = (function() {
             element.joint.onMouseDrag = function(event) {
 
                 //Only drag if there is a keyframe to change
-                if ((element.frames && element.frames[frame])) {
+                if ((element.frames && element.frames[axis.frame])) {
                     //Set the keyframe to the location
-                    element.frames[frame] += event.delta;
-                    console.log(element.frames[frame]);
+                    element.frames[axis.frame] += event.delta;
+                    console.log(element.frames[axis.frame]);
 
                     //Redraw
                     axis.clear(root);
-                    axis.create(root, frame);
+                    axis.create(root, axis.frame);
                     showJoints(root);
                 }
             };
@@ -188,14 +194,14 @@ window.axis = (function() {
         }
 
     //create a new Frame
-    axis.createNewFrame = function(element, frame){
+    axis.createNewFrame = function(element, curFrame, newFrame){
         frame = frame || 0;
 
-        element.frames[frame] = axis.getLocation(element.frames, frame);
+        element.frames[newFrame] = element.frames[curFrame]; 
 
         if (element.points){
             element.points.forEach(function(point){
-                axis.createNewFrame(point, frame)
+                axis.createNewFrame(point, curFrame, newFrame);
             });
         }
     };

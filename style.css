@@ -80,7 +80,7 @@ button:focus {
     left:0;
     right:0;
     height:40px;
-    background-color:#AAA;
+    background-color:#CCC;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     padding:0;
 }

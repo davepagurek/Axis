@@ -119,7 +119,18 @@ $(document).ready(function() {
                 }
             }
             $("li").eq(index).remove();
+            $("[data-frame="+index+"]").remove();
             pop.population.splice(index,1);
+            $(".element_list ul li").each(function(){
+                if (parseInt($(this).attr("id").substring(6)) > index) {
+                    $(this).attr("id",$(this).attr("id").substring(0,6)+(parseInt($(this).attr("id").substring(6))-1));
+                }
+            });
+            $(".frame_list").each(function(){
+                if (parseInt($(this).attr("data-table")) > index) {
+                    $(this).attr("data-frame", parseInt($(this).attr("data-frame"))-1);
+                }
+            });
             axis.clear(axis.selected);
             axis.deleteJoints(axis.selected);
             paper.view.update();
@@ -141,7 +152,6 @@ $(document).ready(function() {
             axis.clear(axis.selected);
             axis.create(axis.selected, axis.frame);
             axis.select(axis.selected, pop.population);
-            alert(axis.selected);
             paper.view.update();
         }
     });

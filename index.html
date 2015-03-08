@@ -3,13 +3,31 @@
         <title>
             Axis
         </title>
-
+        <!--Bootstrap stuffs-->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="style.css" />
         <script type="text/javascript" src="bower_components\paper\dist\paper-full.min.js"></script>
         <script type="text/paperscript" src="axis.js" canvas="stage"></script>
+        <script type="text/paperscript" src="population.js" canvas="stage"></script>
+        
+
     </head>
     <body>
         <canvas id="stage" width="720" height="480"></canvas><br>
+        <div id="wrap">
+          <div id="main" class="container clear-top">
+            <canvas id="stage" width="720" height="480"></canvas>
+          </div>
+        </div>
+        <div class="footer">
+            <div id="timeline"><h5>TIMELINE</h5></div>
+            <div id="element_ist">
+                <ul>
+                    <li><p>Dude one</p></li>
+                </ul>
+            </div>
+        </div>
         <input type="text" name="Frame" id = "Frame" value="0"><br>
         <button onclick="setFrame()"> Set frame </button>
         <button onclick="createFrame()"> Create frame </button>

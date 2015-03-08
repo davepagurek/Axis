@@ -89,10 +89,43 @@ window.pop = (function() {
         }
     };
 
+    pop.fromPaper = function(element) {
+        if (null == element || "object" != typeof element) { // base case for recursion
+            return;
+        }
+        if (element.frames) {
+            for (var frame in element.frames) {
+                var p = {x:element.frames[frame][1], y:element.frames[frame][2]}; // convert coords to Point object
+                element.frames[frame] = p; // replace coords with object
+            }
+        }
+        if (element.path) {
+            delete element.path;
+        }
+        if (element.joint) {
+            delete element.joint;
+        }
+        for (var attr in element) {
+            pop.fromPaper(element[attr]); // recursive call to next level of objects
+        }
+    };
+
     pop.addStickman = function() {
         var newStickman = JSON.parse(JSON.stringify(stickman)); // copy object
         return newStickman;
     };
+
+    pop.save = function() {
+        var writeJson = [];
+        pop.population.forEach(function(element){
+            var temp = JSON.parse(JSON.stringify(element));
+            console.log(temp);
+            pop.fromPaper(temp);
+            writeJson.push(temp);
+        });
+        var ostream = require("fs");
+        ostream.writeFile("save.json", JSON.stringify(writeJson, null, '\t'), function(err){return;});
+    }
 
     pop.population.push(pop.addStickman());
 

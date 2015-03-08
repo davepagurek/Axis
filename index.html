@@ -32,7 +32,53 @@
             <div id="table_list">
                 <table id="frame_list">
                     <tr>
-                        <td><div class="frame"></div></td>
+
+                        <td class="frame selected keyframe"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
+                        <td class="frame"></td>
                     </tr>
                 </table>
             </div>
@@ -47,9 +93,9 @@
             $createFrame = $("#createFrame");
             var frameClick = function(){
                 $(".frame").each(function(){
-                    $(this).css("background-color", "white");
+                    $(this).removeClass("selected");
                 });
-                $(this).css("background-color", "#888888");
+                $(this).addClass("selected");
             };
             $(".frame").click(frameClick);
             

@@ -95,9 +95,9 @@ var addStickman = function(obj) {
     return newStickman;
 }
 
-population.push(stickman);
+//population.push(stickman);
 
-// population.push(addStickman(stickman));
+population.push(addStickman(stickman));
 
 population.forEach(function(element) {
     toPaper(element);
@@ -112,9 +112,15 @@ window.setFrame = function(){
 };
 
 window.createFrame = function(){
-    curFrame = document.getElementById("Frame").value;
+    newFrame = document.getElementById("Frame").value;
     population.forEach(function(element) {
-        axis.createNewFrame(element, curFrame);
+        axis.clear(element);
+        axis.create(element, newFrame);
+        axis.frame = newFrame;
+    });
+    console.log(newFrame);
+    population.forEach(function(element) {
+        axis.createNewFrame(element, curFrame, newFrame);
     });
 };
 

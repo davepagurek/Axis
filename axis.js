@@ -2,6 +2,7 @@ window.axis = (function() {
     var axis = {};
 
     axis.frame = 0;
+    axis.selected = 0;
 
     var getLocation = function(frames, currentFrame) {
         if (!frames) return new Point(0, 0);
@@ -47,6 +48,27 @@ window.axis = (function() {
             element.joint.bringToFront();
             element.viewJoint = true;
         }
+    };
+
+    var hideJoints = function(element) {
+        if (element.points) {
+            element.points.forEach(function(point) {
+                hideJoints(point);
+            });
+        }
+        if (element.joint) {
+            element.viewJoint = false;
+        }
+        axis.clear(element);
+        axis.create(element, axis.frame);
+    };
+
+    axis.select = function(element, population) {
+        population.forEach(function(element) {
+            hideJoints(element);
+        });
+        showJoints(element);
+        axis.selected = element;
     };
 
     var createPath = function(element, start, frame) {
@@ -167,6 +189,8 @@ window.axis = (function() {
             //Move and redraw stickman when a joint is dragged
             element.joint.onMouseDrag = function(event) {
 
+                axis.select(root, pop.population);
+
                 //Only drag if there is a keyframe to change
                 if ((element.frames && element.frames[axis.frame])) {
                     //Set the keyframe to the location
@@ -202,12 +226,6 @@ window.axis = (function() {
                 axis.createNewKeyframe(point, axis.frame);
             });
         }
-    };
-
-
-    //createPath(population.stickman.points[0], view.center, 0);
-
-        showJoints(element);
     };
 
     paper.view.draw();

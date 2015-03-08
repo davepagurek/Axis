@@ -101,5 +101,7 @@ window.pop = (function() {
         axis.create(element, 0); // draws the frame
     });
 
+    axis.select(pop.population[0], pop.population);
+
     return pop;
 }());

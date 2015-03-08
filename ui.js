@@ -58,5 +58,6 @@ $(document).ready(function() {
         pop.toPaper(newStickman);
         pop.population.push(newStickman);
         axis.create(newStickman, axis.frame);
+        axis.select(pop.population[pop.population.length - 1], pop.population);
     });
 });

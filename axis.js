@@ -147,7 +147,7 @@ window.axis = (function() {
         //If it's the root
         } else {
 
-            console.log(end, element.frames[frame]);
+            //console.log(end, element.frames[frame]);
 
             //Create the joint object if it doesn't already exist
             if (!element.joint) {
@@ -166,6 +166,8 @@ window.axis = (function() {
 
         //If we had to make a joint for the first time, add event listeners to it
         if (madeNewJoint) {
+
+            console.log("did this " + new Date().getTime());
 
             //Change colour on mouseover
             element.joint.onMouseEnter = function(event) {
@@ -189,13 +191,13 @@ window.axis = (function() {
             //Move and redraw stickman when a joint is dragged
             element.joint.onMouseDrag = function(event) {
 
-                axis.select(root, pop.population);
+                //axis.select(root, pop.population);
 
                 //Only drag if there is a keyframe to change
                 if ((element.frames && element.frames[axis.frame])) {
                     //Set the keyframe to the location
                     element.frames[axis.frame] += event.delta;
-                    console.log(element.frames[axis.frame]);
+                    //console.log(element.frames[axis.frame]);
 
                     //Redraw
                     axis.clear(root);
@@ -217,21 +219,20 @@ window.axis = (function() {
             });
         }
 
-        //create a new Frame
-        axis.createNewFrame = function(element, curFrame, newFrame){
-            frame = frame || 0;
+        showJoints(element);
+        paper.view.update();
 
-            element.frames[newFrame] = element.frames[curFrame];
+    };
 
-            if (element.points){
-                element.points.forEach(function(point){
-                    axis.createNewFrame(point, curFrame, newFrame);
-                });
-            }
-        };
+    //create a new Frame
+    axis.createNewKeyframe = function(element){
+        element.frames[axis.frame] = getLocation(element.frames, axis.frame);
 
-
-        //showJoints(element);
+        if (element.points){
+            element.points.forEach(function(point){
+                axis.createNewKeyframe(point, axis.frame);
+            });
+        }
     };
 
     paper.view.draw();

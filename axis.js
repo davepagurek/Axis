@@ -8,64 +8,64 @@ var stickman = {
                 0: new Point(0, -80)
             },
             type: "line",
-            //points: [
-                //{
-                    //name: "head",
-                    //frames: { 0: new Point(0, -50) },
-                    //type: "circle"
-                //},
-                //{
-                    //name: "armTopLeft",
-                    //frames: {
-                        //0: new Point(-50, 25)
-                    //},
-                    //type: "line",
-                    //points: [
-                        //{
-                            //name: "armBottomLeft",
-                            //frames: { 0: new Point(-25, 50) },
-                            //type: "line"
-                        //}
-                    //]
-                //},
-                //{
-                    //name: "armTopRight",
-                    //frames: { 0: new Point(50, 25) },
-                    //type: "line",
-                    //points: [
-                        //{
-                            //name: "armBottomRight",
-                            //frames: { 0: new Point(25, 50) },
-                            //type: "line"
-                        //}
-                    //]
-                //}
-            //]
+            points: [
+                {
+                    name: "head",
+                    frames: { 0: new Point(0, -50) },
+                    type: "circle"
+                },
+                {
+                    name: "armTopLeft",
+                    frames: {
+                        0: new Point(-50, 25)
+                    },
+                    type: "line",
+                    points: [
+                        {
+                            name: "armBottomLeft",
+                            frames: { 0: new Point(-25, 50) },
+                            type: "line"
+                        }
+                    ]
+                },
+                {
+                    name: "armTopRight",
+                    frames: { 0: new Point(50, 25) },
+                    type: "line",
+                    points: [
+                        {
+                            name: "armBottomRight",
+                            frames: { 0: new Point(25, 50) },
+                            type: "line"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "legTopLeft",
+            frames: { 0: new Point(-20, 80) },
+            type: "line",
+            points: [
+                {
+                    name: "legBottomLeft",
+                    frames: { 0: new Point(-10, 80) },
+                    type: "line"
+                }
+            ]
+        },
+        {
+            name: "legTopRight",
+            frames: { 0: new Point(20, 80) },
+            type: "line",
+            points: [
+                {
+                    name: "legBottomRight",
+                    frames: { 0: new Point(10, 80) },
+                    type: "line"
+                }
+            ]
         }
-        //{
-            //name: "legTopLeft",
-            //frames: { 0: new Point(-20, 80) },
-            //type: "line",
-            //points: [
-                //{
-                    //name: "legBottomLeft",
-                    //frames: { 0: new Point(-10, 80) },
-                    //type: "line"
-                //}
-            //]
-        //},
-        //{
-            //name: "legTopRight",
-            //frames: { 0: new Point(20, 80) },
-            //type: "line",
-            //points: [
-                //{
-                    //name: "legBottomRight",
-                    //frames: { 0: new Point(10, 80) },
-                    //type: "line"
-                //}
-            //]
-        //}
     ]
 };
 
@@ -89,6 +89,7 @@ var bringJointsToFront = function(element) {
 };
 
 var createPath = function(element, start, frame) {
+    console.log(frame);
     var end = getLocation(element.frames, frame);
     if (element.type == "line") {
         var line = new Path.Line({
@@ -193,6 +194,6 @@ var create = function(element, frame, start, root) {
 
 //createPath(stickman.points[0], view.center, 0);
 
-create(stickman, view.center, 0);
+create(stickman, 0, view.center);
 
 paper.view.draw();

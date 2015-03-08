@@ -69,11 +69,11 @@ window.axis = (function() {
     };
 
     //Recursively erase paths
-    var clear = function(element) {
+    axis.clear = function(element) {
         if (element.path) element.path.remove();
         if (element.points) {
             element.points.forEach(function(point) {
-                clear(point);
+                axis.clear(point);
             });
         }
     };
@@ -168,7 +168,7 @@ window.axis = (function() {
                     console.log(element.frames[frame]);
 
                     //Redraw
-                    clear(root);
+                    axis.clear(root);
                     axis.create(root, frame);
                     showJoints(root);
                 }

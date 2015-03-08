@@ -84,6 +84,10 @@ $(document).ready(function() {
         pop.save();
     });
 
+    $("#open").click(function(){
+        pop.open();
+    });
+
     $(window).keydown(function(event){
         var NEXT_FRAME = 190;
         var PREV_FRAME = 188;

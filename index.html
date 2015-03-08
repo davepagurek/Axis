@@ -12,17 +12,19 @@
         <script type="text/javascript" src="ui.js"></script>
         <script type="text/paperscript" src="axis.js" canvas="stage"></script>
         <script type="text/paperscript" src="population.js" canvas="stage"></script>
-        
+
 
     </head>
     <body>
         <div id="wrap">
-          <div id="main" class="container clear-top">
             <canvas id="stage" width="720" height="480"></canvas>
-          </div>
         </div>
         <div class="footer">
-            <div id="darkpart"><div id="timeline"><p id="centered"><b>TIMELINE</b></p></div></div>
+            <div id="darkpart">
+                <div id="timeline">
+                    <b>TIMELINE</b>
+                </div>
+            </div>
             <div id="space"></div>
             <div id="element_list">
                 <ul>
@@ -34,31 +36,7 @@
             <div id="table_list">
                 <table id="frame_list">
                     <tr>
-
                         <td class="frame selected keyframe"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
-                        <td class="frame"></td>
                         <td class="frame"></td>
                         <td class="frame"></td>
                         <td class="frame"></td>
@@ -84,11 +62,13 @@
                     </tr>
                 </table>
             </div>
-        <div id="dwrap">
-            <input type="text" name="Frame" id = "Frame" value="0"><br>
+        </div>
+        <div id="toolbar">
+            <input type="text" name="Frame" id = "Frame" value="0">
+            <button id="setFrame"> Set frame </button>
             <button id="createFrame"> Create frame </button>
             <button id="createKeyFrame"> Create key frame </button>
-            <button >Create Person</button>
+            <button id="createPerson">Create Person</button>
         </div>
     </body>
 </html>

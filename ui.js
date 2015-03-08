@@ -6,7 +6,7 @@ $(document).ready(function() {
             }
         });
         //selected frame is now new keyframe
-        axis.frame = $(".selected").id;
+        axis.frame = $(".selected").attr("id");
         //create that frame (redraw, set frame to selected frame)
         pop.population.forEach(function(element) {
             axis.clear(element);
@@ -14,14 +14,16 @@ $(document).ready(function() {
         });
         //set every subelement to that frame
         pop.population.forEach(function(element) {
-            axis.createNewFrame(element, axis.frame, axis.frame);
+            axis.createNewKeyframe(element);
         });
     });
 
     $("#setFrame").click(function(){
-        axis.frame = $(".selected").id;
+        axis.frame = $(".selected").attr("id");
         pop.population.forEach(function(element) {
-            console.log(axis.getLocation(element.frames, axis.frame));
+            //console.log(axis.getLocation(element.frames, axis.frame));
+            axis.clear(element);
+            axis.create(element, axis.frame);
         });
     });
 
@@ -31,13 +33,9 @@ $(document).ready(function() {
             $(this).removeClass("selected");
         });
         $(this).addClass("selected");
-        axis.frame = $(this).id;
+        axis.frame = $(this).attr("id");
         //TODO: code for redrawing the canvas based on the frame
-        pop.population.forEach(function(element) {
-            console.log(axis.getLocation(element.frames, axis.frame));
-            axis.clear(element);
-            axis.create(element, axis.frame);
-        });
+        $("#setFrame").click();
     };
     $(".frame").click(frameClick);
 

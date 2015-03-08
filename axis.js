@@ -167,6 +167,8 @@ window.axis = (function() {
         //If we had to make a joint for the first time, add event listeners to it
         if (madeNewJoint) {
 
+            console.log("did this " + new Date().getTime());
+
             //Change colour on mouseover
             element.joint.onMouseEnter = function(event) {
                 if (element.viewJoint) {
@@ -216,6 +218,11 @@ window.axis = (function() {
                 axis.create(point, frame, start+end, root);
             });
         }
+
+        showJoints(element);
+        paper.view.update();
+
+    };
 
     //create a new Frame
     axis.createNewKeyframe = function(element){

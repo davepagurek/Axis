@@ -10,7 +10,8 @@
         "width": 780,
         "height": 720,
         "min_width": 780,
-        "min_height": 720
+        "min_height": 720,
+        "icon": "icons/logo-128.png"
     },
     "scripts": {
         "start": "nodewebkit",

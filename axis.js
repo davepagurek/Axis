@@ -110,6 +110,15 @@ window.axis = (function() {
         }
     };
 
+    axis.deleteJoints = function(element) {
+        if (element.joint) element.joint.remove();
+        if (element.points) {
+            element.points.forEach(function(point) {
+                axis.deleteJoints(point);
+            });
+        }
+    };
+
     //Draws an object recursively
     axis.create = function(element, frame, start, root) {
 

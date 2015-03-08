@@ -110,18 +110,20 @@ $(document).ready(function() {
      $("li").click(selectClick);
 
      $("#deletePerson").click(function(){
-        var index;
-        for (var i = 0; i < pop.population.length; i++) {
-            if (pop.population[i] == axis.selected) {
-                index = i;
-                break;
+        if (pop.population.length > 1){
+            var index;
+            for (var i = 0; i < pop.population.length; i++) {
+                if (pop.population[i] == axis.selected) {
+                    index = i;
+                    break;
+                }
             }
+            $("li").eq(index).remove();
+            pop.population.splice(index,1);
+            axis.clear(axis.selected);
+            axis.deleteJoints(axis.selected);
+            paper.view.update();
         }
-        $("li").eq(index).remove();
-        pop.population.splice(index,1);
-        axis.clear(axis.selected);
-        axis.deleteJoints(axis.selected);
-        paper.view.update();
      });
 
     $("#animate").click(function(){

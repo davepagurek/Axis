@@ -109,6 +109,7 @@ table{
     vertical-align: top;
     border-collapse: collapse;
     margin-top: 2px;
+    width:auto;
 }
 td{
     width: 10px;

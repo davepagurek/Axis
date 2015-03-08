@@ -274,7 +274,13 @@ window.axis = (function() {
         if (axis.frame <= axis.lastFrame) {
             requestAnimationFrame(nextFrame);
         } else {
-            //axis.select(axis.selected, pop.popualtion);
+            axis.frame = 0;
+            pop.population.forEach(function(element) {
+                axis.clear(element);
+                axis.create(element, axis.frame);
+            });
+            axis.select(axis.selected, pop.population);
+            paper.view.update();
         }
     }
 

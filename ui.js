@@ -131,19 +131,18 @@ $(document).ready(function() {
     });
 
     $("#deleteKeyFrame").click(function(){
-        if (pop.population.length > 1) {
-            if(axis.frame != 0) {
-                $(".frame").each(function(){
-                    if($(this).hasClass("selected")){
-                        $(this).removeClass("keyframe");
-                    }
-                });
-                axis.deleteKeyframe(axis.selected,axis.frame);
-                axis.clear(axis.selected);
-                axis.create(axis.selected, axis.frame);
-                axis.select(axis.selected, pop.population);
-                paper.view.update();
-            }
+        if(axis.frame != 0) {
+            $(".frame").each(function(){
+                if($(this).hasClass("selected")){
+                    $(this).removeClass("keyframe");
+                }
+            });
+            axis.deleteKeyframe(axis.selected,axis.frame);
+            axis.clear(axis.selected);
+            axis.create(axis.selected, axis.frame);
+            axis.select(axis.selected, pop.population);
+            alert(axis.selected);
+            paper.view.update();
         }
     });
 

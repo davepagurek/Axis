@@ -147,7 +147,7 @@ window.axis = (function() {
         //If it's the root
         } else {
 
-            console.log(end, element.frames[frame]);
+            //console.log(end, element.frames[frame]);
 
             //Create the joint object if it doesn't already exist
             if (!element.joint) {
@@ -217,21 +217,15 @@ window.axis = (function() {
             });
         }
 
-        //create a new Frame
-        axis.createNewFrame = function(element, curFrame, newFrame){
-            frame = frame || 0;
+    //create a new Frame
+    axis.createNewKeyframe = function(element){
+        element.frames[axis.frame] = getLocation(element.frames, axis.frame);
 
-            element.frames[newFrame] = element.frames[curFrame];
-
-            if (element.points){
-                element.points.forEach(function(point){
-                    axis.createNewFrame(point, curFrame, newFrame);
-                });
-            }
-        };
-
-
-        //showJoints(element);
+        if (element.points){
+            element.points.forEach(function(point){
+                axis.createNewKeyframe(point, axis.frame);
+            });
+        }
     };
 
     paper.view.draw();

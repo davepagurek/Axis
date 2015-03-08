@@ -66,6 +66,11 @@ $(document).ready(function() {
     });
 
     $("#deleteKeyFrame").click(function(){
+        $(".frame").each(function(){
+            if($(this).hasClass("selected")){
+                $(this).removeClass("keyframe");
+            }
+        });
         if(axis.frame != 0) {
             pop.population.forEach(function(element){
                 axis.deleteKeyframe(element,axis.frame);

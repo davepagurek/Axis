@@ -278,9 +278,10 @@ window.axis = (function() {
         }
     }
 
-    axis.animate = function() {
+    axis.animate = function(lastFrame) {
         axis.frame = 0;
         axis.lastUpdate = 0;
+        axis.lastFrame = lastFrame;
         hideJoints(axis.selected);
 
         requestAnimationFrame(nextFrame);

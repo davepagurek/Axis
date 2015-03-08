@@ -112,15 +112,10 @@ population.push(stickman);
 
 // population.push(addStickman(stickman));
 
-// addStickman(stickman.location, stickman.name);
-
 population.forEach(function(element) {
     toPaper(element);
-    alert(axis.create);
     axis.create(element, 0);
 });
-
-
 
 window.setFrame = function(){
     curFrame = document.getElementById("Frame").value;

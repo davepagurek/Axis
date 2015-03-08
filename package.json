@@ -7,9 +7,9 @@
         "show": true,
         "frame": true,
         "position": "center",
-        "width": 720,
+        "width": 750,
         "height": 660,
-        "min_width": 720,
+        "min_width": 750,
         "min_height": 660,
         "max_height": 660
     },

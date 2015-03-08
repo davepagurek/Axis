@@ -106,29 +106,51 @@ $(document).ready(function() {
          }
 
      });
+
      $("li").click(selectClick);
+
+     $("#deletePerson").click(function(){
+        var index;
+        for (var i = 0; i < pop.population.length; i++) {
+            if (pop.population[i] == axis.selected) {
+                index = i;
+                break;
+            }
+        }
+        $("li").eq(index).remove();
+        pop.population.splice(index,1);
+        axis.clear(axis.selected);
+        axis.deleteJoints(axis.selected);
+        paper.view.update();
+     });
 
     $("#animate").click(function(){
         axis.animate(frameNum-1);
     });
 
     $("#deleteKeyFrame").click(function(){
-        if(axis.frame != 0) {
-            $(".frame").each(function(){
-                if($(this).hasClass("selected")){
-                    $(this).removeClass("keyframe");
-                }
-            });
-            axis.deleteKeyframe(axis.selected,axis.frame);
-            axis.clear(axis.selected);
-            axis.create(axis.selected, axis.frame);
-            axis.select(axis.selected, pop.population);
-            paper.view.update();
+        if (pop.population.length > 1) {
+            if(axis.frame != 0) {
+                $(".frame").each(function(){
+                    if($(this).hasClass("selected")){
+                        $(this).removeClass("keyframe");
+                    }
+                });
+                axis.deleteKeyframe(axis.selected,axis.frame);
+                axis.clear(axis.selected);
+                axis.create(axis.selected, axis.frame);
+                axis.select(axis.selected, pop.population);
+                paper.view.update();
+            }
         }
     });
 
     $("#save").click(function(){
         pop.save();
+    });
+
+    $("#open").click(function(){
+        pop.open();
     });
 
     $(window).keydown(function(event){

@@ -7,8 +7,8 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <script type="text/javascript" src="bower_components\paper\dist\paper-full.min.js"></script>
-        <script type="text/javascript" src="bower_components\jquery\dist\jquery.js"></script>
+        <script type="text/javascript" src="bower_components/paper/dist/paper-full.min.js"></script>
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="ui.js"></script>
         <script type="text/paperscript" src="axis.js" canvas="stage"></script>
         <script type="text/paperscript" src="population.js" canvas="stage"></script>
@@ -41,6 +41,11 @@
                 </table>
             </div>
         </div>
+        <div id="filebar">
+            <img src="icons/logo-128.png">
+            <button id="save">Save</button>
+            <button id="open">Open</button>
+        </div>
         <div id="toolbar">
             <button id="createFrame"> Create frame</button>
             <button id="createKeyFrame"> Create keyframe</button>
@@ -48,7 +53,6 @@
             <button id="createPerson">Create Person</button>
             <button id="deletePerson">Delete Person</button>
             <button id="animate">Animate!</button>
-            <button id="save">Save</button>
         </div>
     </body>
 </html>

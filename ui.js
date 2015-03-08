@@ -187,6 +187,14 @@ $(document).ready(function() {
     });
 
     window.makeFrames = function(popList){
-
+        alert('pls');
+        $('.frame_list').each(function(){
+            $(this).find('tr').append('<td><div class="frame"></div></td>');
+            $(this).find('tr td:last .frame').click(frameClick);
+            //add an id that increments for each div
+            $(this).find('tr td:last .frame').attr("id", frameNum);
+            //axis.lastFrame = frameNum;
+        });
+        frameNum++;
     };
 });

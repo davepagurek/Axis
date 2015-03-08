@@ -101,24 +101,3 @@ population.forEach(function(element) {
     toPaper(element);
     axis.create(element, 0);
 });
-
-window.setFrame = function(){
-    curFrame = document.getElementById("Frame").value;
-    population.forEach(function(element) {
-        console.log(axis.getLocation(element.frames, curFrame));
-    });
-};
-
-window.createFrame = function(){
-    newFrame = document.getElementById("Frame").value;
-    population.forEach(function(element) {
-        axis.clear(element);
-        axis.create(element, newFrame);
-        axis.frame = newFrame;
-    });
-    console.log(newFrame);
-    population.forEach(function(element) {
-        axis.createNewFrame(element, curFrame, newFrame);
-    });
-};
-

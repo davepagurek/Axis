@@ -61,4 +61,8 @@ $(document).ready(function() {
     $("#animate").click(function(){
         axis.animate();
     });
+
+    $("deleteKeyFrame").click(function(){
+        
+    });
 });

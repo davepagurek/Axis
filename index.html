@@ -32,6 +32,7 @@
             <div id="table_list">
                 <table id="frame_list">
                     <tr>
+
                         <td class="frame selected keyframe"></td>
                         <td class="frame"></td>
                         <td class="frame"></td>
@@ -78,22 +79,29 @@
                         <td class="frame"></td>
                         <td class="frame"></td>
                         <td class="frame"></td>
-
                     </tr>
                 </table>
+            </div>
+        <div id="dwrap">
+            <input type="text" name="Frame" id = "Frame" value="0"><br>
+            <button onclick="setFrame()"> Set frame </button>
+            <button onclick="createFrame()" id="createFrame"> Create frame </button>
+            <button >Create Person</button>
         </div>
-        <input type="text" name="Frame" id = "Frame" value="0"><br>
-        <button onclick="setFrame()"> Set frame </button>
-        <button onclick="createFrame()"> Create frame </button>
-        <button >Create Person</button>
         <script type="text/javascript" src="bower_components\jquery\dist\jquery.js"></script>
         <script type="text/javascript">
-            $frame = $(".frame");
-            $frame.click(function(){
-                $frame.each(function(){
+            $createFrame = $("#createFrame");
+            var frameClick = function(){
+                $(".frame").each(function(){
                     $(this).removeClass("selected");
                 });
                 $(this).addClass("selected");
+            };
+            $(".frame").click(frameClick);
+            
+            $createFrame.click(function(){
+                $('#frame_list tr').append('<td><div class="frame"></div></td>');
+                $('#frame_list tr td:last .frame').click(frameClick);
             });
         </script>
     </body>

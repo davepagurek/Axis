@@ -88,14 +88,12 @@ var toPaper = function(element) {
     for (var attr in element) {
         toPaper(element[attr]);
     }
-}
+};
 
 var addStickman = function(obj) {
-    var newStickman = JSON.parse(JSON.stringify(obj))
+    var newStickman = JSON.parse(JSON.stringify(obj));
     return newStickman;
-}
-
-//population.push(stickman);
+};
 
 population.push(addStickman(stickman));
 
@@ -126,4 +124,3 @@ window.createFrame = function(){
         axis.createNewFrame(element, curFrame, newFrame);
     });
 };
-

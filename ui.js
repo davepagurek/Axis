@@ -1,6 +1,13 @@
 $(document).ready(function() {
     $("#createKeyFrame").click(function(){
-        $(".frame").each(function(){
+        var popindex = 0;
+        for (var i = 0; i < pop.population.length; i++){
+            if (pop.population[i] == axis.selected){
+                popindex = i;
+                break;
+            }
+        }
+        $(".frame_list[data-frame='" + popindex + "']").find(".frame").each(function(){
             if($(this).hasClass("selected")){
                 $(this).addClass("keyframe");
             }
@@ -17,12 +24,18 @@ $(document).ready(function() {
 
     $createFrame = $("#createFrame");
     var frameClick = function(){
-        $(".frame").each(function(){
-            $(this).removeClass("selected");
+        //select every frame on the current frame
+        var currentFrame = $(this).attr("id");
+        $('.frame_list').each(function(){
+            $(".frame").each(function(){
+                $(this).removeClass("selected");
+                if ($(this).attr("id") == currentFrame){
+                    $(this).addClass("selected");
+                }
+            });
         });
-        $(this).addClass("selected");
         axis.frame = $(this).attr("id");
-        //TODO: code for redrawing the canvas based on the frame
+        //redrawing the canvas based on the frame
         axis.frame = $(".selected").attr("id");
         pop.population.forEach(function(element) {
             //console.log(axis.getLocation(element.frames, axis.frame));
@@ -74,16 +87,24 @@ $(document).ready(function() {
 
          //adding a new table containing the frames 
          $("#table_list").append("<table class='frame_list'><tr></tr></table>");
-         $("#table_list table:last").attr("data-frame", pop.population.length);
+         $("#table_list table:last").attr("data-frame", pop.population.length - 1);
          $("#table_list table:last tr").append("<td> <div class='frame keyframe' id ='0'></div></td>");
          $("#table_list table:last tr td .frame").click(frameClick);
+         //selects the frame if it is currently selected
+         if (axis.frame == 0){
+            $("#table_list table:last tr td .frame").click();
+         }
          //adds a frame for every frame already existing
          // console.log($("#table_list table:last tr"));
          var length = $('.frame_list:first-child tr td').length;
          for (var i = 1; i < length; i++){
             $("#table_list table:last tr").append("<td><div class='frame' id = '" + i + "'></div></td>");
             $("#table_list table:last tr td:last .frame").click(frameClick);
+            if (axis.frame == i){
+                $("#table_list table:last tr td .frame").click();
+             }
          }
+
      });
      $("li").click(selectClick);
 

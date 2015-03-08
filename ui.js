@@ -21,6 +21,7 @@ $(document).ready(function() {
             //console.log(axis.getLocation(element.frames, axis.frame));
             axis.clear(element);
             axis.create(element, axis.frame);
+            //console.log(axis.getLocation(element.frames, axis.frame));
         });
     });
 
@@ -44,6 +45,7 @@ $(document).ready(function() {
         $('#frame_list tr td:last .frame').click(frameClick);
         //add an id that increments for each div
         $('#frame_list tr td:last .frame').attr("id", frameNum);
+        axis.lastframe = frameNum;
         frameNum++;
     });
     for (var i = 0; i<10; i++){

@@ -2,6 +2,7 @@ window.axis = (function() {
     var axis = {};
 
     axis.frame = 0;
+    axis.lastframe = 0;
     axis.selected = 0;
 
     var getLocation = function(frames, currentFrame) {
@@ -21,6 +22,8 @@ window.axis = (function() {
                     next = parseInt(frame, 10);
                 }
             }
+            console.log(frames[prev]);
+            console.log(frames[next]);
             //if current frame is further than last keyframe, return position at last keyframe
             if (next == Number.MAX_VALUE){
                 return frames[prev];
@@ -198,7 +201,7 @@ window.axis = (function() {
                 if ((element.frames && element.frames[axis.frame])) {
                     //Set the keyframe to the location
                     element.frames[axis.frame] += event.delta;
-                    //console.log(element.frames[axis.frame]);
+                    console.log(element.frames);
 
                     //Redraw
                     axis.clear(root);

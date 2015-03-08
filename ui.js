@@ -1,5 +1,10 @@
 $(document).ready(function() {
-    $("createKeyFrame").click(function(){
+    $("#createKeyFrame").click(function(){
+        $(".frame").each(function(){
+            if($(this).hasClass("selected")){
+                $(this).addClass("keyframe");
+            }
+        });
         newFrame = document.getElementById("Frame").value;
         population.forEach(function(element) {
             axis.clear(element);
@@ -19,6 +24,7 @@ $(document).ready(function() {
         });
     });
 
+    //selection becomes grey on click
     $createFrame = $("#createFrame");
     var frameClick = function(){
         $(".frame").each(function(){
@@ -28,6 +34,7 @@ $(document).ready(function() {
     };
     $(".frame").click(frameClick);
 
+    //button click -> create frame and add click listener
     $createFrame.click(function(){
         $('#frame_list tr').append('<td><div class="frame"></div></td>');
         $('#frame_list tr td:last .frame').click(frameClick);

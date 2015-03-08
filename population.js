@@ -104,8 +104,11 @@ population.forEach(function(element) {
     axis.create(element, 0);
 });
 
+curFrame = 0;
+
 window.setFrame = function(){
     curFrame = document.getElementById("Frame").value;
+    //curFrame = $(".selected").id;
     population.forEach(function(element) {
         console.log(axis.getLocation(element.frames, curFrame));
     });

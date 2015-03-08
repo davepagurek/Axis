@@ -73,6 +73,7 @@ window.axis = (function() {
         });
         showJoints(element);
         axis.selected = element;
+        paper.view.update();
     };
 
     var createPath = function(element, start, frame) {
@@ -223,7 +224,7 @@ window.axis = (function() {
             });
         }
 
-        showJoints(element);
+        // showJoints(element);
         paper.view.update();
 
     };

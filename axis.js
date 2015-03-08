@@ -69,11 +69,11 @@ window.axis = (function() {
     };
 
     //Recursively erase paths
-    var clear = function(element) {
+    axis.clear = function(element) {
         if (element.path) element.path.remove();
         if (element.points) {
             element.points.forEach(function(point) {
-                clear(point);
+                axis.clear(point);
             });
         }
     };
@@ -118,6 +118,8 @@ window.axis = (function() {
 
         //If it's the root
         } else {
+
+            console.log(end, element.frames[frame]);
 
             //Create the joint object if it doesn't already exist
             if (!element.joint) {
@@ -166,7 +168,7 @@ window.axis = (function() {
                     console.log(element.frames[frame]);
 
                     //Redraw
-                    clear(root);
+                    axis.clear(root);
                     axis.create(root, frame);
                     showJoints(root);
                 }
@@ -189,7 +191,7 @@ window.axis = (function() {
     axis.createNewFrame = function(element, frame){
         frame = frame || 0;
 
-        element.frames[frame] = element.location; 
+        element.frames[frame] = axis.getLocation(element.frames, frame);
 
         if (element.points){
             element.points.forEach(function(point){

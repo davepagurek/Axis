@@ -70,15 +70,18 @@ var stickman = {
 };
 
 var population = [];
-population.push(stickman);
 
 var addStickman = function(location, name) {
     var newStickman = JSON.parse(JSON.stringify(stickman));
-    newStickman.name = name;
-    newStickman.location = location;
+    console.log(newStickman);
+    // newStickman.name = name;
+    // newStickman.location = location;
     population.push(newStickman);
 }
 
+population.push(stickman);
+// addStickman(stickman.location, stickman.name);
+
 population.forEach(function(element) {
-    create(element, 0, view.center);
+    axis.create(element, 0, view.center);
 });

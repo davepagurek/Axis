@@ -2,9 +2,6 @@ var stickman = {
     name: "root",
     frames: { 0: { x: 360, y: 240 } },
     root: true,
-    frames: { 
-        0: new Point(0, 0) 
-    },
     points: [
         {
             name: "body",
@@ -94,17 +91,7 @@ var toPaper = function(element) {
 }
 
 var addStickman = function(obj) {
-    if (null == obj || "object" != typeof obj) {
-        return obj;
-    }
-
-    var newStickman = {};
-    for (var attr in obj) {
-        if (obj.hasOwnProperty(attr)) {
-            newStickman[attr] = addStickman(obj[attr]);
-        }
-    }
-
+    var newStickman = JSON.parse(JSON.stringify(obj))
     return newStickman;
 }
 
@@ -122,11 +109,12 @@ window.setFrame = function(){
     population.forEach(function(element) {
         console.log(axis.getLocation(element.frames, curFrame));
     });
-}
+};
 
 window.createFrame = function(){
     curFrame = document.getElementById("Frame").value;
     population.forEach(function(element) {
         axis.createNewFrame(element, curFrame);
     });
-}
+};
+

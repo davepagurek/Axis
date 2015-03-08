@@ -3,13 +3,13 @@
     "version": "0.0.0",
     "description": "",
     "main": "index.html",
-    "window": { 
+    "window": {
         "show": true,
         "frame": true,
         "position": "center",
-        "width": 750,
+        "width": 760,
         "height": 660,
-        "min_width": 750,
+        "min_width": 760,
         "min_height": 660,
         "max_height": 660
     },

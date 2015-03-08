@@ -69,6 +69,14 @@ var stickman = {
     ]
 };
 
+var population = [];
+
+var addStickman = function() {
+    var newStickman = JSON.parse(JSON.stringify(stickman));
+    population.push(newStickman);
+
+}
+
 var getLocation = function(frames, currentFrame) {
     if (frames[currentFrame]) {
         return frames[currentFrame];

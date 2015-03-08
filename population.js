@@ -2,6 +2,9 @@ var stickman = {
     name: "root",
     frames: { 0: { x: 360, y: 240 } },
     root: true,
+    frames: { 
+        0: new Point(0, 0) 
+    },
     points: [
         {
             name: "body",
@@ -114,5 +117,21 @@ population.push(addStickman(stickman));
 population.forEach(function(element) {
     toPaper(element);
     alert(axis.create);
+    axis.create(element, 0);
+});
+
+window.setFrame = function(){
+    curFrame = document.getElementById("Frame").value;
+    population.forEach(function(element) {
+        console.log(axis.getLocation(element.frames, curFrame));
+    });
+}
+
+window.createFrame = function(){
+    curFrame = document.getElementById("Frame").value;
+    population.forEach(function(element) {
+        axis.createNewFrame(element, curFrame);
+    });
+}
     axis.create(element, 0);
 });

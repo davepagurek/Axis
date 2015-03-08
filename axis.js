@@ -1,16 +1,34 @@
 window.axis = (function() {
     var axis = {};
 
-    var getLocation = function(frames, currentFrame) {
+    axis.getLocation = function(frames, currentFrame) {
         if (!frames) return new Point(0, 0);
+        //if frame exists, return it
         if (frames[currentFrame]) {
             return frames[currentFrame];
         } else {
-            console.log(frames, currentFrame);
-            return view.center;
-            //TODO: Add interpolation here
+            var prev = 0;
+            var next = Number.MAX_VALUE;
+            //finds the previous keyframe + next keyframe
+            for (var frame in frames){
+                if (parseInt(frame, 10) > prev && parseInt(frame, 10) < currentFrame){
+                    prev = parseInt(frame, 10);
+                }
+                if (parseInt(frame, 10) < next && parseInt(frame, 10) > currentFrame){
+                    next = parseInt(frame, 10);
+                }
+            }
+            //if current frame is further than last keyframe, return position at last keyframe
+            if (next == Number.MAX_VALUE){
+                return frames[prev];
+            }
+            //else, perform linear interpolation and calculate the x,y depending on the frame progress between prev and next frames
+            else{
+                var ratio = currentFrame/(next - prev);
+                return new Point(frames[prev].x + ratio*(frames[next].x-frames[prev].x), frames[prev].y + ratio*(frames[next].y-frames[prev].y));
+            }
         }
-    }
+    };
 
     //Recursively draw jointsagain so that they end up in front of lines
     var showJoints = function(element) {
@@ -26,9 +44,7 @@ window.axis = (function() {
     };
 
     var createPath = function(element, start, frame) {
-
-        //Get the location of the end of the line
-        var end = getLocation(element.frames, frame);
+        var end = axis.getLocation(element.frames, frame);
 
         //Use Paper.js to draw the shape
         if (element.type == "line") {
@@ -71,7 +87,7 @@ window.axis = (function() {
         start = start || new Point(0,0);
 
         //Find the end location of the joint for the current element
-        var end = getLocation(element.frames, frame);
+        var end = axis.getLocation(element.frames, frame);
 
         //If we had to create the clickable joint for the first time or if it's just being redrawn
         var madeNewJoint = false;
@@ -169,6 +185,22 @@ window.axis = (function() {
             });
         }
 
+    //create a new Frame
+    axis.createNewFrame = function(element, frame){
+        frame = frame || 0;
+
+        element.frames[frame] = element.location; 
+
+        if (element.points){
+            element.points.forEach(function(point){
+                axis.createNewFrame(point, frame)
+            });
+        }
+    };
+
+
+    //createPath(population.stickman.points[0], view.center, 0);
+
         showJoints(element);
     };
 
@@ -176,3 +208,4 @@ window.axis = (function() {
 
     return axis;
 }());
+

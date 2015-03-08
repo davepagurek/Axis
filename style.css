@@ -67,14 +67,14 @@ button:focus {
 #createFrame:active {
     background-color:#44D;
 }
-#createKeyframe {
+#createKeyframe, #animate {
     background-color:#77F;
     color:#FFF;
 }
-#createKeyframe:hover {
+#createKeyframe:hover, #animate:hover {
     background-color:#88F;
 }
-#createKeyrame:active {
+#createKeyrame:active, #animate:active {
     background-color:#66E;
 }
 
@@ -173,20 +173,19 @@ td{
 }
 
 li {
-	cursor: pointer;
-	height: 23px;
-	padding-top: 3px;
-	text-align: center;
-	border-bottom: solid black 1px;
-	border-left: solid black 1px;
+    cursor: pointer;
+    height: 23px;
+    padding-top: 3px;
+    text-align: center;
+    border-top: 1px solid #BBB;
 }
 
-li:last-child {
-	border-bottom: none;
+li:first-child {
+    border-top: none;
 }
 
 li:hover {
-	background-color: #919191;
+    background-color: #919191;
 }
 
 /* Toolbar */

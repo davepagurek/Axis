@@ -65,6 +65,19 @@ $(document).ready(function() {
         axis.animate();
     });
 
+    $("#deleteKeyFrame").click(function(){
+        $(".frame").each(function(){
+            if($(this).hasClass("selected")){
+                $(this).removeClass("keyframe");
+            }
+        });
+        if(axis.frame != 0) {
+            pop.population.forEach(function(element){
+                axis.deleteKeyframe(element,axis.frame);
+            });
+        }
+    });
+
     $(window).keydown(function(event){
         var NEXT_FRAME = 190;
         var PREV_FRAME = 188;
@@ -83,9 +96,5 @@ $(document).ready(function() {
             $("#" + (axis.frame-1)).click();
         }
         return false;
-    });
-
-    $("deleteKeyFrame").click(function(){
-
     });
 });

@@ -39,11 +39,18 @@ $(document).ready(function() {
 
     //button click -> create frame and add click listener
     $createFrame.click(function(){
-        $('#frame_list tr').append('<td><div class="frame"></div></td>');
-        $('#frame_list tr td:last .frame').click(frameClick);
-        //add an id that increments for each div
-        $('#frame_list tr td:last .frame').attr("id", frameNum);
-        //axis.lastFrame = frameNum;
+        $('.frame_list').each(function(){
+            $(this).find('tr').append('<td><div class="frame"></div></td>');
+            $(this).find('tr td:last .frame').click(frameClick);
+            //add an id that increments for each div
+            $(this).find('tr td:last .frame').attr("id", frameNum);
+            //axis.lastFrame = frameNum;
+        });
+        // $('#frame_list tr').append('<td><div class="frame"></div></td>');
+        // $('#frame_list tr td:last .frame').click(frameClick);
+        // //add an id that increments for each div
+        // $('#frame_list tr td:last .frame').attr("id", frameNum);
+        // //axis.lastFrame = frameNum;
         frameNum++;
     });
 
@@ -54,6 +61,8 @@ $(document).ready(function() {
     var selectClick = function(){
         axis.select(pop.population[$(this).attr("id").charAt(6)-1], pop.population);
     };
+
+    //creating a new stickman 
     $("#createPerson").click(function(){
          var newStickman = pop.addStickman();
          console.log(newStickman);
@@ -63,11 +72,18 @@ $(document).ready(function() {
          $("#element_list ul").append("<li>Dude "+pop.population.length+"</li>");
          $("#element_list ul li:last").attr("id","person"+pop.population.length);
          $("#element_list ul li:last").click(selectClick);
-         $("#table_list").append("<table id='frame_list'><tr></tr></table>");
-         $("#table_list table:last").attr("id", $("#table_list table:last").attr("id")+ " " + pop.population.length);
-         $("#table_list table:last tr").append("<td class='frame keyframe' id ='0'></td>");
-         for (var i = 1; i < $('#frame_list tr td').length; i++){
-            $("#table_list table:last tr").append("<td class='frame' id = '" + i + "'></td>");
+
+         //adding a new table containing the frames 
+         $("#table_list").append("<table class='frame_list'><tr></tr></table>");
+         $("#table_list table:last").attr("data-frame", pop.population.length);
+         $("#table_list table:last tr").append("<td> <div class='frame keyframe' id ='0'></div></td>");
+         $("#table_list table:last tr td .frame").click(frameClick);
+         //adds a frame for every frame already existing
+         // console.log($("#table_list table:last tr"));
+         var length = $('.frame_list:first-child tr td').length;
+         for (var i = 1; i < length; i++){
+            $("#table_list table:last tr").append("<td><div class='frame' id = '" + i + "'></div></td>");
+            $("#table_list table:last tr td:last .frame").click(frameClick);
          }
      });
      $("li").click(selectClick);

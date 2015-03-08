@@ -42,9 +42,13 @@
             </div>
         </div>
         <div id="filebar">
-            <img src="icons/logo-128.png">
-            <button id="save">Save</button>
-            <button id="open">Open</button>
+            <div id="dark" class="wrapper">
+                <img src="icons/logo-128.png">
+            </div>
+            <div class="wrapper">
+                <button id="save">Save</button><input type="file" style="display:none" id="saveDialogue" nwsaveas />
+                <button id="open">Open</button><input type="file" style="display:none;" id="openDialogue" />
+            </div>
         </div>
         <div id="toolbar">
             <button id="createFrame"> Create frame</button>

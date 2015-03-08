@@ -127,18 +127,22 @@ window.pop = (function() {
         ostream.writeFile("save.json", JSON.stringify(writeJson, null, '\t'), function(err){return;});
     }
 
-    pop.open = function() {
+    pop.open = function(file) {
         var istream = require("fs");
-        var temp = JSON.parse(istream.readFileSync("save.json"));
+        var temp = JSON.parse(istream.readFileSync(file));
         // console.log(temp);
         pop.population.forEach(function(element){
             axis.clear(element);
+            axis.deleteJoints(element);
         });
         pop.population = temp;
         pop.population.forEach(function(element){
             pop.toPaper(element);
+            axis.create(element);
         });
+        axis.select(pop.population[0], pop.population);
         paper.view.update();
+        //TODO: Update timeline
     };
 
     pop.population.push(pop.addStickman());

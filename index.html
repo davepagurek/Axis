@@ -89,5 +89,15 @@
         <button onclick="setFrame()"> Set frame </button>
         <button onclick="createFrame()"> Create frame </button>
         <button >Create Person</button>
+        <script type="text/javascript" src="bower_components\jquery\dist\jquery.js"></script>
+        <script type="text/javascript">
+            $frame = $(".frame");
+            $frame.click(function(){
+                $frame.each(function(){
+                    $(this).css("background-color", "white");
+                });
+                $(this).css("background-color", "#888888");
+            });
+        </script>
     </body>
 </html>

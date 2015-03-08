@@ -19,7 +19,6 @@ $(document).ready(function() {
         });
     });
 
-    $createFrame = $("#createFrame");
     var frameClick = function(){
         $(".frame").each(function(){
             $(this).removeClass("selected");
@@ -28,7 +27,7 @@ $(document).ready(function() {
     };
     $(".frame").click(frameClick);
 
-    $createFrame.click(function(){
+    $("#createFrame").click(function(){
         $('#frame_list tr').append('<td><div class="frame"></div></td>');
         $('#frame_list tr td:last .frame').click(frameClick);
     });

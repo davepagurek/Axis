@@ -15,15 +15,6 @@ $(document).ready(function() {
         });
     });
 
-    $("#setFrame").click(function(){
-        axis.frame = $(".selected").attr("id");
-        pop.population.forEach(function(element) {
-            //console.log(axis.getLocation(element.frames, axis.frame));
-            axis.clear(element);
-            axis.create(element, axis.frame);
-        });
-    });
-
     $createFrame = $("#createFrame");
     var frameClick = function(){
         $(".frame").each(function(){
@@ -32,7 +23,12 @@ $(document).ready(function() {
         $(this).addClass("selected");
         axis.frame = $(this).attr("id");
         //TODO: code for redrawing the canvas based on the frame
-        $("#setFrame").click();
+        axis.frame = $(".selected").attr("id");
+        pop.population.forEach(function(element) {
+            //console.log(axis.getLocation(element.frames, axis.frame));
+            axis.clear(element);
+            axis.create(element, axis.frame);
+        });
     };
     $(".frame").click(frameClick);
 
@@ -44,11 +40,9 @@ $(document).ready(function() {
         $('#frame_list tr td:last .frame').click(frameClick);
         //add an id that increments for each div
         $('#frame_list tr td:last .frame').attr("id", frameNum);
+        axis.lastFrame = frameNum;
         frameNum++;
     });
-    for (var i = 0; i<10; i++){
-        $createFrame.click();
-    }
 
     var selectClick = function(){
         axis.select(pop.population[$(this).attr("id").charAt(6)-1], pop.population);

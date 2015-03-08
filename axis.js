@@ -33,11 +33,12 @@ window.axis = (function() {
         }
     };
 
+    //wrapper for public function calling
     axis.getLocation = function(frames,currentFrame){
         return getLocation(frames, currentFrame);
     };
 
-    //Recursively draw jointsagain so that they end up in front of lines
+    //Recursively draw joints again so that they end up in front of lines
     var showJoints = function(element) {
         if (element.points) {
             element.points.forEach(function(point) {

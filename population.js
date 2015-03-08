@@ -1,6 +1,6 @@
 var stickman = {
     name: "root",
-    frames: { 0: view.center },
+    frames: { 0: { x: 360, y: 240 } },
     root: true,
     points: [
         {

@@ -66,15 +66,18 @@ $(document).ready(function() {
     });
 
     $("#deleteKeyFrame").click(function(){
-        $(".frame").each(function(){
-            if($(this).hasClass("selected")){
-                $(this).removeClass("keyframe");
-            }
-        });
         if(axis.frame != 0) {
+            $(".frame").each(function(){
+                if($(this).hasClass("selected")){
+                    $(this).removeClass("keyframe");
+                }
+            });
             pop.population.forEach(function(element){
                 axis.deleteKeyframe(element,axis.frame);
+                axis.clear(element);
+
             });
+            paper.view.update();
         }
     });
 

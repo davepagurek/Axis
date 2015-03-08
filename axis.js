@@ -197,7 +197,7 @@ window.axis = (function() {
     axis.createNewFrame = function(element, curFrame, newFrame){
         frame = frame || 0;
 
-        element.frames[newFrame] = element.frames[curFrame]; 
+        element.frames[newFrame] = getLocation(element.frames, curFrame); 
 
         if (element.points){
             element.points.forEach(function(point){

@@ -6,23 +6,22 @@ $(document).ready(function() {
             }
         });
         //selected frame is now new keyframe
-        newFrame = $(".selected").id;
+        axis.frame = $(".selected").id;
         //create that frame (redraw, set frame to selected frame)
         pop.population.forEach(function(element) {
             axis.clear(element);
-            axis.create(element, newFrame);
-            axis.frame = newFrame;
+            axis.create(element, axis.frame);
         });
         //set every subelement to that frame
         pop.population.forEach(function(element) {
-            axis.createNewFrame(element, axis.frame, newFrame);
+            axis.createNewFrame(element, axis.frame, axis.frame);
         });
     });
 
     $("#setFrame").click(function(){
-        curFrame = document.getElementById("Frame").value;
+        axis.frame = $(".selected").id;
         pop.population.forEach(function(element) {
-            console.log(axis.getLocation(element.frames, curFrame));
+            console.log(axis.getLocation(element.frames, axis.frame));
         });
     });
 
@@ -32,18 +31,17 @@ $(document).ready(function() {
             $(this).removeClass("selected");
         });
         $(this).addClass("selected");
-        curFrame = $(this).id;
+        axis.frame = $(this).id;
         //TODO: code for redrawing the canvas based on the frame
-        population.forEach(function(element) {
-            console.log(axis.getLocation(element.frames, curFrame));
+        pop.population.forEach(function(element) {
+            console.log(axis.getLocation(element.frames, axis.frame));
             axis.clear(element);
-            axis.create(element, curFrame);
-            axis.frame = newFrame;
+            axis.create(element, axis.frame);
         });
     };
     $(".frame").click(frameClick);
 
-    var frameNum = 0;
+    var frameNum = 1;
 
     //button click -> create frame and add click listener
     $createFrame.click(function(){
@@ -53,6 +51,9 @@ $(document).ready(function() {
         $('#frame_list tr td:last .frame').attr("id", frameNum);
         frameNum++;
     });
+    for (var i = 0; i<10; i++){
+        $createFrame.click();
+    }
 
     $("#createPerson").click(function(){
         var newStickman = pop.addStickman();

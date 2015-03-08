@@ -32,17 +32,42 @@ ul{
     height: 100%;
     margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
 }
-.footer, .push {
-    height: 200px; /* .push must be the same height as .footer */
-    background-color: #E5E5E5;
-}
 
+
+
+/* Stage */
+
+#wrap {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:280px;
+}
 #stage{
     display: block;
-    margin:20px auto;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:-360px;
+    margin-top:-220px;
     height: 420px;
     width: 720px;
     background-color: white;
+}
+
+
+
+
+
+/* Timeline */
+.footer {
+    height: 200px; /* .push must be the same height as .footer */
+    background-color: #E5E5E5;
+    position:fixed;
+    bottom:80px;
+    left:0;
+    right:0;
 }
 #element_list{
     vertical-align: top;
@@ -52,7 +77,12 @@ ul{
     height: 165px;
 }
 #table_list{
-    display: inline-block;
+    display: block;
+    position:absolute;
+    right:0;
+    left:200px;
+    top:30px;
+    overflow-x:scroll;
 }
 #darkpart{
     display: inline-block;
@@ -93,4 +123,20 @@ td{
     content: '\2022';
     text-align:center;
     display:block;
+}
+
+
+
+
+/* Toolbar */
+
+#toolbar {
+    display:block;
+    padding:15px;
+    background-color:#D6D6D6;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height: 80px;
 }

@@ -13,6 +13,8 @@ $(document).ready(function() {
             axis.clear(element);
             axis.create(element, axis.frame);
         });
+
+        axis.select(axis.selected, pop.population);
     });
 
     $createFrame = $("#createFrame");
@@ -29,6 +31,7 @@ $(document).ready(function() {
             axis.clear(element);
             axis.create(element, axis.frame);
         });
+        axis.select(axis.selected, pop.population);
     };
     $(".frame").click(frameClick);
 
@@ -63,11 +66,30 @@ $(document).ready(function() {
     });
 
     $("#deleteKeyFrame").click(function(){
-        alert("hi");
         if(axis.frame != 0) {
             pop.population.forEach(function(element){
                 axis.deleteKeyframe(element,axis.frame);
             });
         }
+    });
+
+    $(window).keydown(function(event){
+        var NEXT_FRAME = 190;
+        var PREV_FRAME = 188;
+        var ANIMATE = 13;
+        var NEW_FRAME = 78;
+        var NEW_KEYFRAME = 32;
+        if (event.keyCode == NEW_FRAME) {
+            $("#createFrame").click();
+        } else if (event.keyCode == NEW_KEYFRAME) {
+            $("#createKeyFrame").click();
+        } else if (event.keyCode == ANIMATE) {
+            $("#animate").click();
+        } else if (event.keyCode == NEXT_FRAME && parseInt(axis.frame)+1<=parseInt(axis.lastFrame)) {
+            $("#" + (parseInt(axis.frame)+1)).click();
+        } else if (event.keyCode == PREV_FRAME && parseInt(axis.frame)>0) {
+            $("#" + (axis.frame-1)).click();
+        }
+        return false;
     });
 });

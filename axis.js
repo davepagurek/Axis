@@ -1,3 +1,5 @@
+var curFrame = 0;
+
 var stickman = {
     name: "root",
     root: true,
@@ -168,6 +170,7 @@ var create = function(element, frame, start, root) {
             } else {
                 element.joint.fillColor = "orange";
             }
+            console.log(getLocation(element.frames, frame));
         };
 
         element.joint.onMouseDrag = function(event) {
@@ -192,6 +195,16 @@ var create = function(element, frame, start, root) {
 
     element.joint.bringToFront();
 };
+
+window.setFrame = function(){
+    curFrame = document.getElementById("Frame").value;
+    console.log(curFrame);
+    console.log(document.getElementById("Frame").value);
+}
+
+window.createFrame = function(){
+    curFrame = document.getElementById("Frame").value;
+}
 
 //createPath(stickman.points[0], view.center, 0);
 

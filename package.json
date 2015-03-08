@@ -10,7 +10,8 @@
         "width": 720,
         "height": 660,
         "min_width": 720,
-        "min_height": 660
+        "min_height": 660,
+        "max_height": 660
     },
     "scripts": {
         "start": "nodewebkit",

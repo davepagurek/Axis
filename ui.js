@@ -44,4 +44,8 @@ $(document).ready(function() {
         pop.population.push(newStickman);
         axis.create(newStickman, axis.frame);
     });
+
+    $("#animate").click(function() {
+        
+    });
 });

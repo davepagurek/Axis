@@ -71,8 +71,10 @@ var stickman = {
 
 var population = [];
 
-var addStickman = function() {
+var addStickman = function(location, name) {
     var newStickman = JSON.parse(JSON.stringify(stickman));
+    newStickman.name = name;
+    
     population.push(newStickman);
 
 }

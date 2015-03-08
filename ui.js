@@ -57,4 +57,8 @@ $(document).ready(function() {
         axis.create(newStickman, axis.frame);
         axis.select(pop.population[pop.population.length - 1], pop.population);
     });
+
+    $("#animate").click(function(){
+        axis.animate();
+    });
 });

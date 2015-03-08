@@ -38,13 +38,22 @@ $(document).ready(function() {
         $('#frame_list tr td:last .frame').click(frameClick);
     });
 
+    var selectClick = function(){
+        axis.select(pop.population[$(this).attr("id").charAt(6)-1], pop.population);
+    };
+
     $("#createPerson").click(function(){
         var newStickman = pop.addStickman();
         pop.toPaper(newStickman);
         pop.population.push(newStickman);
         axis.create(newStickman, axis.frame);
         axis.select(pop.population[pop.population.length - 1], pop.population);
+        $("#element_list ul").append("<li>Dude "+pop.population.length+"</li>");
+        $("#element_list ul li:last").attr("id","person"+pop.population.length);
+        $("#element_list ul li:last").click(selectClick);
     });
+
+    $("li").click(selectClick);
 
     // $("#animate").click(function(){
     //     lastUpdate = new Date().getTime();
@@ -55,8 +64,4 @@ $(document).ready(function() {
     //         }
     //     });
     // });
-
-    $("deletePerson").click(function(){
-        
-    });
 });

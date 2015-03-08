@@ -129,8 +129,22 @@ td{
     display:block;
 }
 
+li {
+	cursor: pointer;
+	height: 45px;
+	padding-top: 10px;
+	text-align: center;
+	border-bottom: solid black 1px;
+	border-left: solid black 1px;
+}
 
+li:last-child {
+	border-bottom: none;
+}
 
+li:hover {
+	background-color: #919191;
+}
 
 /* Toolbar */
 

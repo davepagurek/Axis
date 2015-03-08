@@ -119,6 +119,8 @@ window.axis = (function() {
         //If it's the root
         } else {
 
+            console.log(end, element.frames[frame]);
+
             //Create the joint object if it doesn't already exist
             if (!element.joint) {
                 var joint = new Path.Circle({
@@ -189,7 +191,7 @@ window.axis = (function() {
     axis.createNewFrame = function(element, frame){
         frame = frame || 0;
 
-        element.frames[frame] = element.location; 
+        element.frames[frame] = axis.getLocation(element.frames, frame);
 
         if (element.points){
             element.points.forEach(function(point){

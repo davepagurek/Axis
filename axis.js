@@ -70,6 +70,7 @@ var stickman = {
 };
 
 var getLocation = function(frames, currentFrame) {
+    if (!frames) return new Point(0, 0);
     if (frames[currentFrame]) {
         return frames[currentFrame];
     } else {
@@ -89,7 +90,6 @@ var bringJointsToFront = function(element) {
 };
 
 var createPath = function(element, start, frame) {
-    console.log(frame);
     var end = getLocation(element.frames, frame);
     if (element.type == "line") {
         var line = new Path.Line({
@@ -184,8 +184,9 @@ var create = function(element, frame, start, root) {
 
 
     if (element.points) {
+
         element.points.forEach(function(point) {
-            create(point, frame, start+element.end, root);
+            create(point, frame, start+getLocation(element.frames, frame), root);
         });
     }
 

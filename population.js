@@ -73,54 +73,28 @@ var stickman = {
 var population = [];
 
 var toPaper = function(element) {
-    if (null == element || "object" != typeof element) {
+    if (null == element || "object" != typeof element) { // base case for recursion
         return;
     }
     if (element.frames) {
         for (var frame in element.frames) {
-            // alert(JSON.stringify(element.frames[frame]));
-            var p = new Point(element.frames[frame].x, element.frames[frame].y);
-            // alert(JSON.stringify(p));
-            element.frames[frame] = p;
-            // alert(JSON.stringify(element.frames));
+            var p = new Point(element.frames[frame].x, element.frames[frame].y); // convert coords to Point object
+            element.frames[frame] = p; // replace coords with object
         }
     }
     for (var attr in element) {
-        toPaper(element[attr]);
+        toPaper(element[attr]); // recursive call to next level of objects
     }
 };
 
 var addStickman = function(obj) {
-    var newStickman = JSON.parse(JSON.stringify(obj));
+    var newStickman = JSON.parse(JSON.stringify(obj)); // copy object
     return newStickman;
 };
 
 population.push(addStickman(stickman));
 
 population.forEach(function(element) {
-    toPaper(element);
-    axis.create(element, 0);
+    toPaper(element); // convert objects to use Paper objects
+    axis.create(element, 0); // draws the frame
 });
-
-curFrame = 0;
-
-window.setFrame = function(){
-    curFrame = document.getElementById("Frame").value;
-    //curFrame = $(".selected").id;
-    population.forEach(function(element) {
-        console.log(axis.getLocation(element.frames, curFrame));
-    });
-};
-
-window.createFrame = function(){
-    newFrame = document.getElementById("Frame").value;
-    population.forEach(function(element) {
-        axis.clear(element);
-        axis.create(element, newFrame);
-        axis.frame = newFrame;
-    });
-    console.log(newFrame);
-    population.forEach(function(element) {
-        axis.createNewFrame(element, curFrame, newFrame);
-    });
-};

@@ -1,16 +1,34 @@
 window.axis = (function() {
     var axis = {};
 
-    var getLocation = function(frames, currentFrame) {
+    axis.getLocation = function(frames, currentFrame) {
         if (!frames) return new Point(0, 0);
+        //if frame exists, return it
         if (frames[currentFrame]) {
             return frames[currentFrame];
         } else {
-            console.log(frames, currentFrame);
-            return view.center;
-            //TODO: Add interpolation here
+            var prev = 0;
+            var next = Number.MAX_VALUE;
+            //finds the previous keyframe + next keyframe
+            for (var frame in frames){
+                if (parseInt(frame, 10) > prev && parseInt(frame, 10) < currentFrame){
+                    prev = parseInt(frame, 10);
+                }
+                if (parseInt(frame, 10) < next && parseInt(frame, 10) > currentFrame){
+                    next = parseInt(frame, 10);
+                }
+            }
+            //if current frame is further than last keyframe, return position at last keyframe
+            if (next == Number.MAX_VALUE){
+                return frames[prev];
+            }
+            //else, perform linear interpolation and calculate the x,y depending on the frame progress between prev and next frames
+            else{
+                var ratio = currentFrame/(next - prev);
+                return new Point(frames[prev].x + ratio*(frames[next].x-frames[prev].x), frames[prev].y + ratio*(frames[next].y-frames[prev].y));
+            }
         }
-    }
+    };
 
     var showJoints = function(element) {
         if (element.points) {
@@ -22,7 +40,7 @@ window.axis = (function() {
     };
 
     var createPath = function(element, start, frame) {
-        var end = getLocation(element.frames, frame);
+        var end = axis.getLocation(element.frames, frame);
         if (element.type == "line") {
             var line = new Path.Line({
                 from: start,
@@ -57,7 +75,7 @@ window.axis = (function() {
         frame = frame || 0;
         root = root || element
         start = start || element.location || view.center;
-        var end = getLocation(element.frames, frame);
+        var end = axis.getLocation(element.frames, frame);
         var madeNewJoint = false;
         if (!element.root) {
             if (!element.joint) {
@@ -129,19 +147,26 @@ window.axis = (function() {
         }
     };
 
+    //create a new Frame
+    axis.createNewFrame = function(element, frame){
+        frame = frame || 0;
+
+        element.frames[frame] = element.location; 
+
+        if (element.points){
+            element.points.forEach(function(point){
+                axis.createNewFrame(point, frame)
+            });
+        }
+    };
+
+
     //createPath(population.stickman.points[0], view.center, 0);
 
     paper.view.draw();
 
-    window.setFrame = function(){
-        curFrame = document.getElementById("Frame").value;
-        console.log(curFrame);
-        console.log(document.getElementById("Frame").value);
-    }
 
-    window.createFrame = function(){
-        curFrame = document.getElementById("Frame").value;
-    }
+
     return axis;
 }());
 

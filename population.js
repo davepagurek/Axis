@@ -115,7 +115,7 @@ window.pop = (function() {
         return newStickman;
     };
 
-    pop.save = function() {
+    pop.save = function(file) {
         var writeJson = [];
         pop.population.forEach(function(element){
             var temp = JSON.parse(JSON.stringify(element));
@@ -124,7 +124,9 @@ window.pop = (function() {
             writeJson.push(temp);
         });
         var ostream = require("fs");
-        ostream.writeFile("save.json", JSON.stringify(writeJson, null, '\t'), function(err){return;});
+        ostream.writeFile(file, JSON.stringify(writeJson, null, '\t'), function(err){
+            alert("File saved successfully.");
+        });
     }
 
     pop.open = function(file) {
@@ -142,6 +144,9 @@ window.pop = (function() {
         });
         axis.select(pop.population[0], pop.population);
         paper.view.update();
+
+        window.makeFrames(pop.population);
+
         //TODO: Update timeline
     };
 

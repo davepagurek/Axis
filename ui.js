@@ -26,7 +26,6 @@ $(document).ready(function() {
         });
     });
 
-    //selection becomes grey on click
     $createFrame = $("#createFrame");
     var frameClick = function(){
         $(".frame").each(function(){

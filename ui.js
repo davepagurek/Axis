@@ -73,7 +73,7 @@ $(document).ready(function() {
         axis.select(pop.population[$(this).attr("id").charAt(6)-1], pop.population);
     };
 
-    //creating a new stickman 
+    //creating a new stickman
     $("#createPerson").click(function(){
          var newStickman = pop.addStickman();
          pop.toPaper(newStickman);
@@ -85,7 +85,7 @@ $(document).ready(function() {
          $("#element_list ul li:last").attr("id","person"+pop.population.length);
          $("#element_list ul li:last").click(selectClick);
 
-         //adding a new table containing the frames 
+         //adding a new table containing the frames
          $("#table_list").append("<table class='frame_list'><tr></tr></table>");
          $("#table_list table:last").attr("data-frame", pop.population.length - 1);
          $("#table_list table:last tr").append("<td> <div class='frame keyframe' id ='0'></div></td>");
@@ -147,11 +147,22 @@ $(document).ready(function() {
     });
 
     $("#save").click(function(){
-        pop.save();
+        //pop.save();
+        $("#saveDialogue").click();
+    });
+
+    $("#saveDialogue").change(function() {
+        pop.save(this.value);
     });
 
     $("#open").click(function(){
-        pop.open();
+        //pop.open();
+        $("#openDialogue").click();
+    });
+
+    $("#openDialogue").change(function() {
+        //alert(this.value);
+        pop.open(this.value);
     });
 
     $(window).keydown(function(event){
@@ -173,4 +184,8 @@ $(document).ready(function() {
         }
         return false;
     });
+
+    window.makeFrames = function(popList){
+
+    };
 });

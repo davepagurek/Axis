@@ -103,5 +103,3 @@ window.createFrame = function(){
         axis.createNewFrame(element, curFrame);
     });
 }
-    axis.create(element, 0);
-});

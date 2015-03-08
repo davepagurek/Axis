@@ -1,7 +1,7 @@
 window.axis = (function() {
     var axis = {};
 
-    axis.getLocation = function(frames, currentFrame) {
+    var getLocation = function(frames, currentFrame) {
         if (!frames) return new Point(0, 0);
         //if frame exists, return it
         if (frames[currentFrame]) {
@@ -30,6 +30,10 @@ window.axis = (function() {
         }
     };
 
+    axis.getLocation = function(frames,currentFrame){
+        return getLocation(frames, currentFrame);
+    };
+
     //Recursively draw jointsagain so that they end up in front of lines
     var showJoints = function(element) {
         if (element.points) {
@@ -44,7 +48,7 @@ window.axis = (function() {
     };
 
     var createPath = function(element, start, frame) {
-        var end = axis.getLocation(element.frames, frame);
+        var end = getLocation(element.frames, frame);
 
         //Use Paper.js to draw the shape
         if (element.type == "line") {
@@ -87,7 +91,7 @@ window.axis = (function() {
         start = start || new Point(0,0);
 
         //Find the end location of the joint for the current element
-        var end = axis.getLocation(element.frames, frame);
+        var end = getLocation(element.frames, frame);
 
         //If we had to create the clickable joint for the first time or if it's just being redrawn
         var madeNewJoint = false;

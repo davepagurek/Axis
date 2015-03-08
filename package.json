@@ -1,14 +1,15 @@
 {
-  "name": "Axis",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.html",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "nodewebkit": "^0.11.6"
-  }
+    "name": "Axis",
+    "version": "0.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+        "start": "nodewebkit",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "nodewebkit": "^0.11.6"
+    }
 }

@@ -195,7 +195,7 @@ window.axis = (function() {
                 if ((element.frames && element.frames[axis.frame])) {
                     //Set the keyframe to the location
                     element.frames[axis.frame] += event.delta;
-                    console.log(element.frames[axis.frame]);
+                    //console.log(element.frames[axis.frame]);
 
                     //Redraw
                     axis.clear(root);

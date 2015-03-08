@@ -80,10 +80,10 @@ var getLocation = function(frames, currentFrame) {
     }
 }
 
-var bringJointsToFront = function(element) {
+var showJoints = function(element) {
     if (element.points) {
         element.points.forEach(function(point) {
-            bringJointsToFront(point);
+            showJoints(point);
         });
     }
     if (element.joint) element.joint.bringToFront();
@@ -180,7 +180,7 @@ var create = function(element, frame, start, root) {
                 }
                 clear(root);
                 create(root, frame);
-                bringJointsToFront(stickman);
+                showJoints(stickman);
             }
         };
     }
@@ -195,12 +195,11 @@ var create = function(element, frame, start, root) {
             create(point, frame, start+end, root);
         });
     }
-
-    element.joint.bringToFront();
 };
 
 //createPath(stickman.points[0], view.center, 0);
 
 create(stickman, 0, view.center);
+showJoints(stickman);
 
 paper.view.draw();

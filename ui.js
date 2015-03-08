@@ -146,7 +146,12 @@ $(document).ready(function() {
     });
 
     $("#save").click(function(){
-        pop.save();
+        //pop.save();
+        $("#saveDialogue").click();
+    });
+
+    $("#saveDialogue").change(function() {
+        pop.save(this.value);
     });
 
     $("#open").click(function(){
@@ -178,4 +183,8 @@ $(document).ready(function() {
         }
         return false;
     });
+
+    window.makeFrames = function(popList){
+
+    };
 });

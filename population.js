@@ -127,10 +127,18 @@ window.pop = (function() {
         ostream.writeFile("save.json", JSON.stringify(writeJson, null, '\t'), function(err){return;});
     }
 
-    pop.load = function() {
+    pop.open = function() {
         var istream = require("fs");
         var temp = JSON.parse(istream.readFileSync("save.json"));
-        console.log(temp);
+        // console.log(temp);
+        pop.population.forEach(function(element){
+            axis.clear(element);
+        });
+        pop.population = temp;
+        pop.population.forEach(function(element){
+            pop.toPaper(element);
+        });
+        paper.view.update();
     };
 
     pop.population.push(pop.addStickman());

@@ -112,7 +112,7 @@ window.axis = (function() {
                     }
                     clear(root);
                     axis.create(root, frame);
-                    showJoints(stickman);
+                    showJoints(root);
                 }
             };
         }
@@ -129,7 +129,7 @@ window.axis = (function() {
         }
     };
 
-    //createPath(stickman.points[0], view.center, 0);
+    //createPath(population.stickman.points[0], view.center, 0);
 
     paper.view.draw();
 

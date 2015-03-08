@@ -52,6 +52,7 @@ $(document).ready(function() {
     };
     $("#createPerson").click(function(){
          var newStickman = pop.addStickman();
+         console.log(newStickman);
          pop.population.push(newStickman);
          axis.create(newStickman, axis.frame);
          axis.select(pop.population[pop.population.length - 1], pop.population);
@@ -75,8 +76,9 @@ $(document).ready(function() {
             pop.population.forEach(function(element){
                 axis.deleteKeyframe(element,axis.frame);
                 axis.clear(element);
-
+                axis.create(element, axis.frame);
             });
+            axis.select(axis.selected, pop.population);
             paper.view.update();
         }
     });

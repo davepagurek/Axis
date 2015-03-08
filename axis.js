@@ -1,6 +1,8 @@
 window.axis = (function() {
     var axis = {};
 
+    axis.frame = 0;
+
     var getLocation = function(frames, currentFrame) {
         if (!frames) return new Point(0, 0);
         //if frame exists, return it
@@ -9,7 +11,6 @@ window.axis = (function() {
         } else {
             var prev = 0;
             var next = Number.MAX_VALUE;
-            alert(JSON.stringify(frames));
             //finds the previous keyframe + next keyframe
             for (var frame in frames){
                 if (parseInt(frame, 10) > prev && parseInt(frame, 10) < currentFrame){
@@ -26,8 +27,6 @@ window.axis = (function() {
             //else, perform linear interpolation and calculate the x,y depending on the frame progress between prev and next frames
             else{
                 var ratio = currentFrame/(next - prev);
-                alert(JSON.stringify(frames));
-                // alert(JSON.stringify(frames[next]));
                 return new Point(frames[prev].x + ratio*(frames[next].x-frames[prev].x), frames[prev].y + ratio*(frames[next].y-frames[prev].y));
             }
         }
@@ -126,6 +125,8 @@ window.axis = (function() {
         //If it's the root
         } else {
 
+            console.log(end, element.frames[frame]);
+
             //Create the joint object if it doesn't already exist
             if (!element.joint) {
                 var joint = new Path.Circle({
@@ -167,14 +168,14 @@ window.axis = (function() {
             element.joint.onMouseDrag = function(event) {
 
                 //Only drag if there is a keyframe to change
-                if ((element.frames && element.frames[frame])) {
+                if ((element.frames && element.frames[axis.frame])) {
                     //Set the keyframe to the location
-                    element.frames[frame] += event.delta;
-                    console.log(element.frames[frame]);
+                    element.frames[axis.frame] += event.delta;
+                    console.log(element.frames[axis.frame]);
 
                     //Redraw
                     axis.clear(root);
-                    axis.create(root, frame);
+                    axis.create(root, axis.frame);
                     showJoints(root);
                 }
             };

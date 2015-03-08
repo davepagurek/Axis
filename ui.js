@@ -84,6 +84,10 @@ $(document).ready(function() {
         }
     });
 
+    $("#save").click(function(){
+        console.log(pop.save());
+    });
+
     $(window).keydown(function(event){
         var NEXT_FRAME = 190;
         var PREV_FRAME = 188;

@@ -187,14 +187,19 @@ $(document).ready(function() {
     });
 
     window.makeFrames = function(popList){
-        alert('pls');
-        $('.frame_list').each(function(){
-            $(this).find('tr').append('<td><div class="frame"></div></td>');
-            $(this).find('tr td:last .frame').click(frameClick);
+        var list = Array.prototype.sort.call(Object.keys(popList[0].frames));
+        for(i = 0; i < list[list.length - 1]; i++){
+            $('.frame_list').find('tr').append('<td><div class="frame"></div></td>');
+            $('.frame_list').find('tr td:last .frame').click(frameClick);
             //add an id that increments for each div
-            $(this).find('tr td:last .frame').attr("id", frameNum);
+            $('.frame_list').find('tr td:last .frame').attr("id", frameNum);
             //axis.lastFrame = frameNum;
-        });
-        frameNum++;
+            frameNum++;
+
+            if(popList[0].frames[i+10]){
+                $('.frame_list').find('tr td:last .frame').addClass("keyframe");
+            }
+            axis.lastFrame = frameNum;
+        }
     };
 });

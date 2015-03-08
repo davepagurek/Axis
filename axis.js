@@ -1,205 +1,137 @@
-var stickman = {
-    name: "root",
-    root: true,
-    points: [
-        {
-            name: "body",
-            frames: {
-                0: new Point(0, -80)
-            },
-            type: "line",
-            points: [
-                {
-                    name: "head",
-                    frames: { 0: new Point(0, -50) },
-                    type: "circle"
-                },
-                {
-                    name: "armTopLeft",
-                    frames: {
-                        0: new Point(-50, 25)
-                    },
-                    type: "line",
-                    points: [
-                        {
-                            name: "armBottomLeft",
-                            frames: { 0: new Point(-25, 50) },
-                            type: "line"
-                        }
-                    ]
-                },
-                {
-                    name: "armTopRight",
-                    frames: { 0: new Point(50, 25) },
-                    type: "line",
-                    points: [
-                        {
-                            name: "armBottomRight",
-                            frames: { 0: new Point(25, 50) },
-                            type: "line"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            name: "legTopLeft",
-            frames: { 0: new Point(-20, 80) },
-            type: "line",
-            points: [
-                {
-                    name: "legBottomLeft",
-                    frames: { 0: new Point(-10, 80) },
-                    type: "line"
-                }
-            ]
-        },
-        {
-            name: "legTopRight",
-            frames: { 0: new Point(20, 80) },
-            type: "line",
-            points: [
-                {
-                    name: "legBottomRight",
-                    frames: { 0: new Point(10, 80) },
-                    type: "line"
-                }
-            ]
+window.axis = (function() {
+    var axis = {};
+
+    var getLocation = function(frames, currentFrame) {
+        if (!frames) return new Point(0, 0);
+        if (frames[currentFrame]) {
+            return frames[currentFrame];
+        } else {
+            console.log(frames, currentFrame);
+            return view.center;
+            //TODO: Add interpolation here
         }
-    ]
-};
-
-var getLocation = function(frames, currentFrame) {
-    if (!frames) return new Point(0, 0);
-    if (frames[currentFrame]) {
-        return frames[currentFrame];
-    } else {
-        console.log(frames, currentFrame);
-        return view.center;
-        //TODO: Add interpolation here
     }
-}
 
-var showJoints = function(element) {
-    if (element.points) {
-        element.points.forEach(function(point) {
-            showJoints(point);
-        });
-    }
-    if (element.joint) element.joint.bringToFront();
-};
-
-var createPath = function(element, start, frame) {
-    var end = getLocation(element.frames, frame);
-    if (element.type == "line") {
-        var line = new Path.Line({
-            from: start,
-            to: start+end,
-            strokeWidth: 10,
-            strokeColor: "black",
-            strokeCap: "round"
-        });
-        return line;
-    } else if (element.type == "circle") {
-        var circle = new Path.Circle({
-            center: start+end/2,
-            radius: end.length/2,
-            strokeWidth: 10,
-            strokeColor: "black",
-            strokeCap: "round"
-        });
-        return circle;
-    }
-};
-
-var clear = function(element) {
-    if (element.path) element.path.remove();
-    if (element.points) {
-        element.points.forEach(function(point) {
-            clear(point);
-        });
-    }
-};
-
-var create = function(element, frame, start, root) {
-    frame = frame || 0;
-    root = root || element
-    start = start || element.location || view.center;
-    var end = getLocation(element.frames, frame);
-    var madeNewJoint = false;
-    if (!element.root) {
-        if (!element.joint) {
-            var joint = new Path.Circle({
-                radius: 5,
-                strokeWidth: 20,
-                strokeColor: "red",
-                fillColor: "red"
+    var showJoints = function(element) {
+        if (element.points) {
+            element.points.forEach(function(point) {
+                showJoints(point);
             });
-            element.joint = joint;
-            madeNewJoint = true;
         }
-        element.joint.position = start+end;
+        if (element.joint) element.joint.bringToFront();
+    };
 
-        element.path = createPath(element, start, frame);
-
-    } else {
-        element.location =element.location || start;
-        if (!element.joint) {
-            var joint = new Path.Circle({
-                radius: 5,
-                strokeWidth: 20,
-                strokeColor: "orange",
-                fillColor: "orange"
+    var createPath = function(element, start, frame) {
+        var end = getLocation(element.frames, frame);
+        if (element.type == "line") {
+            var line = new Path.Line({
+                from: start,
+                to: start+end,
+                strokeWidth: 10,
+                strokeColor: "black",
+                strokeCap: "round"
             });
-            element.joint = joint;
-            madeNewJoint = true;
+            return line;
+        } else if (element.type == "circle") {
+            var circle = new Path.Circle({
+                center: start+end/2,
+                radius: end.length/2,
+                strokeWidth: 10,
+                strokeColor: "black",
+                strokeCap: "round"
+            });
+            return circle;
         }
-        element.joint.position = start;
-    }
+    };
 
-    if (madeNewJoint) {
-        element.joint.onMouseEnter = function(event) {
-            element.joint.bringToFront();
-            element.joint.fillColor = "lime";
-        };
+    var clear = function(element) {
+        if (element.path) element.path.remove();
+        if (element.points) {
+            element.points.forEach(function(point) {
+                clear(point);
+            });
+        }
+    };
 
-        element.joint.onMouseLeave = function(event) {
-            if (element.path) {
-                element.joint.fillColor = "red";
-            } else {
-                element.joint.fillColor = "orange";
+    axis.create = function(element, frame, start, root) {
+        frame = frame || 0;
+        root = root || element
+        start = start || element.location || view.center;
+        var end = getLocation(element.frames, frame);
+        var madeNewJoint = false;
+        if (!element.root) {
+            if (!element.joint) {
+                var joint = new Path.Circle({
+                    radius: 5,
+                    strokeWidth: 20,
+                    strokeColor: "red",
+                    fillColor: "red"
+                });
+                element.joint = joint;
+                madeNewJoint = true;
             }
-        };
+            element.joint.position = start+end;
 
-        element.joint.onMouseDrag = function(event) {
-            if ((element.frames && element.frames[frame]) || element.root) {
-                if (element.root) {
-                    element.location += event.delta;
+            element.path = createPath(element, start, frame);
+
+        } else {
+            element.location =element.location || start;
+            if (!element.joint) {
+                var joint = new Path.Circle({
+                    radius: 5,
+                    strokeWidth: 20,
+                    strokeColor: "orange",
+                    fillColor: "orange"
+                });
+                element.joint = joint;
+                madeNewJoint = true;
+            }
+            element.joint.position = start;
+        }
+
+        if (madeNewJoint) {
+            element.joint.onMouseEnter = function(event) {
+                element.joint.bringToFront();
+                element.joint.fillColor = "lime";
+            };
+
+            element.joint.onMouseLeave = function(event) {
+                if (element.path) {
+                    element.joint.fillColor = "red";
                 } else {
-                    element.frames[frame] += event.delta;
+                    element.joint.fillColor = "orange";
                 }
-                clear(root);
-                create(root, frame);
-                showJoints(stickman);
-            }
-        };
-    }
+            };
 
-    element.joint.strokeColor.alpha = 0;
+            element.joint.onMouseDrag = function(event) {
+                if ((element.frames && element.frames[frame]) || element.root) {
+                    if (element.root) {
+                        element.location += event.delta;
+                    } else {
+                        element.frames[frame] += event.delta;
+                    }
+                    clear(root);
+                    axis.create(root, frame);
+                    showJoints(stickman);
+                }
+            };
+        }
+
+        element.joint.strokeColor.alpha = 0;
 
 
 
-    if (element.points) {
+        if (element.points) {
 
-        element.points.forEach(function(point) {
-            create(point, frame, start+end, root);
-        });
-    }
-};
+            element.points.forEach(function(point) {
+                axis.create(point, frame, start+end, root);
+            });
+        }
+    };
 
-//createPath(stickman.points[0], view.center, 0);
+    //createPath(stickman.points[0], view.center, 0);
 
-create(stickman, 0, view.center);
-showJoints(stickman);
+    paper.view.draw();
 
-paper.view.draw();
+    return axis;
+}());

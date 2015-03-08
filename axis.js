@@ -125,7 +125,7 @@ window.axis = (function() {
         //If it's the root
         } else {
 
-            console.log(end, element.frames[frame]);
+            //console.log(end, element.frames[frame]);
 
             //Create the joint object if it doesn't already exist
             if (!element.joint) {
@@ -171,7 +171,7 @@ window.axis = (function() {
                 if ((element.frames && element.frames[axis.frame])) {
                     //Set the keyframe to the location
                     element.frames[axis.frame] += event.delta;
-                    console.log(element.frames[axis.frame]);
+                    console.log(element.frames);
 
                     //Redraw
                     axis.clear(root);
@@ -194,14 +194,12 @@ window.axis = (function() {
         }
 
     //create a new Frame
-    axis.createNewFrame = function(element, curFrame, newFrame){
-        frame = frame || 0;
-
-        element.frames[newFrame] = getLocation(element.frames, curFrame); 
+    axis.createNewKeyframe = function(element){
+        element.frames[axis.frame] = getLocation(element.frames, axis.frame); 
 
         if (element.points){
             element.points.forEach(function(point){
-                axis.createNewFrame(point, curFrame, newFrame);
+                axis.createNewKeyframe(point, axis.frame);
             });
         }
     };

@@ -40,9 +40,13 @@ $(document).ready(function() {
         $('#frame_list tr td:last .frame').click(frameClick);
         //add an id that increments for each div
         $('#frame_list tr td:last .frame').attr("id", frameNum);
-        axis.lastFrame = frameNum;
+        //axis.lastFrame = frameNum;
         frameNum++;
     });
+
+    for(var i = 0; i < 10; i++){
+        $createFrame.click();
+    }
 
     var selectClick = function(){
         axis.select(pop.population[$(this).attr("id").charAt(6)-1], pop.population);
@@ -55,10 +59,16 @@ $(document).ready(function() {
          $("#element_list ul").append("<li>Dude "+pop.population.length+"</li>");
          $("#element_list ul li:last").attr("id","person"+pop.population.length);
          $("#element_list ul li:last").click(selectClick);
+         $("#table_list").append("<table id='frame_list'><tr></tr></table>");
+         $("#table_list table:last").attr("id", $("#table_list table:last").attr("id")+ " " + pop.population.length);
+         $("#table_list table:last tr").append("<td class='frame keyframe' id ='0'></td>");
+         for (var i = 1; i < $('#frame_list tr td').length; i++){
+            $("#table_list table:last tr").append("<td class='frame' id = '" + i + "'></td>");
+         }
      });
      $("li").click(selectClick);
 
     $("#animate").click(function(){
-        axis.animate();
+        axis.animate(frameNum-1);
     });
 });

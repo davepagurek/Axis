@@ -9,12 +9,9 @@ $(document).ready(function() {
         axis.frame = $(".selected").attr("id");
         //create that frame (redraw, set frame to selected frame)
         pop.population.forEach(function(element) {
+            axis.createNewKeyframe(element);
             axis.clear(element);
             axis.create(element, axis.frame);
-        });
-        //set every subelement to that frame
-        pop.population.forEach(function(element) {
-            axis.createNewKeyframe(element);
         });
     });
 

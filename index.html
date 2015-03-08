@@ -14,6 +14,7 @@
 
     </head>
     <body>
+        <canvas id="stage" width="720" height="480"></canvas><br>
         <div id="wrap">
           <div id="main" class="container clear-top">
             <canvas id="stage" width="720" height="480"></canvas>
@@ -84,5 +85,8 @@
                     </tr>
                 </table>
         </div>
+        <input type="text" name="Frame" id = "Frame" value="0"><br>
+        <button onclick="setFrame()"> Set frame </button>
+        <button onclick="createFrame()"> Create frame </button>
     </body>
 </html>

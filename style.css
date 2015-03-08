@@ -9,6 +9,7 @@
 }
 html, body {
     height: 100%;
+    background-color: #AAA;
 }
 p, li{
     cursor:default;
@@ -38,8 +39,7 @@ ul{
 
 #stage{
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin:20px auto;
     height: 420px;
     width: 720px;
     background-color: white;

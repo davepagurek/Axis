@@ -7,11 +7,10 @@
         "show": true,
         "frame": true,
         "position": "center",
-        "width": 760,
+        "width": 780,
         "height": 660,
-        "min_width": 760,
-        "min_height": 660,
-        "max_height": 660
+        "min_width": 780,
+        "min_height": 660
     },
     "scripts": {
         "start": "nodewebkit",

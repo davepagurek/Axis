@@ -52,6 +52,7 @@ $(document).ready(function() {
     };
     $("#createPerson").click(function(){
          var newStickman = pop.addStickman();
+         pop.toPaper(newStickman);
          console.log(newStickman);
          pop.population.push(newStickman);
          axis.create(newStickman, axis.frame);

@@ -135,6 +135,7 @@ var create = function(element, frame, start, root) {
     frame = frame || 0;
     root = root || element
     start = start || element.location || view.center;
+    var end = getLocation(element.frames, frame);
     var madeNewJoint = false;
     if (!element.root) {
         if (!element.joint) {
@@ -147,12 +148,12 @@ var create = function(element, frame, start, root) {
             element.joint = joint;
             madeNewJoint = true;
         }
-        element.joint.position = start+element.end;
+        element.joint.position = start+end;
 
         element.path = createPath(element, start, frame);
 
     } else {
-        element.location = start;
+        element.location =element.location || start;
         if (!element.joint) {
             var joint = new Path.Circle({
                 radius: 5,
@@ -181,11 +182,16 @@ var create = function(element, frame, start, root) {
         };
 
         element.joint.onMouseDrag = function(event) {
-            element.end += event.delta;
-            if (element.root) element.location += event.delta;
-            clear(root);
-            create(root, frame);
-            bringJointsToFront(stickman);
+            if ((element.frames && element.frames[frame]) || element.root) {
+                if (element.root) {
+                    element.location += event.delta;
+                } else {
+                    element.frames[frame] += event.delta;
+                }
+                clear(root);
+                create(root, frame);
+                bringJointsToFront(stickman);
+            }
         };
     }
 
@@ -196,7 +202,7 @@ var create = function(element, frame, start, root) {
     if (element.points) {
 
         element.points.forEach(function(point) {
-            create(point, frame, start+getLocation(element.frames, frame), root);
+            create(point, frame, start+end, root);
         });
     }
 

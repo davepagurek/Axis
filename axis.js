@@ -238,6 +238,20 @@ window.axis = (function() {
         }
     };
 
+    axis.deleteKeyframe = function(element, delFrame){
+        console.log(element);
+        if (element.frames) {
+            if (element.frames[""+delFrame]) {
+                delete element.frames[""+delFrame];
+            } else return;
+        } else return;
+        if (element.points) {
+            element.points.forEach(function(point){
+                axis.deleteKeyframe(point, delFrame);
+            });
+        }
+    };
+
     var nextFrame = function() {
         console.log("animating: " + new Date().getTime());
         if (new Date().getTime() - axis.lastUpdate >= 1000/24) {

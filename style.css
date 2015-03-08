@@ -35,6 +35,50 @@ ul{
 
 
 
+/* Buttons */
+button {
+    background-color:#EEE;
+    border-radius: 4px;
+    border:0;
+    padding:3px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+button:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    background-color:#FFF;
+}
+button:active {
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+    background-color:#DDD;
+    outline:0;
+}
+button:focus {
+    background-color:#DADAFF;
+    outline:0;
+}
+#createFrame {
+    background-color:#55E;
+    color:#FFF;
+}
+#createFrame:hover {
+    background-color:#66F;
+}
+#createFrame:active {
+    background-color:#44D;
+}
+#createKeyframe, #animate {
+    background-color:#77F;
+    color:#FFF;
+}
+#createKeyframe:hover, #animate:hover {
+    background-color:#88F;
+}
+#createKeyrame:active, #animate:active {
+    background-color:#66E;
+}
+
+
 /* Stage */
 
 #wrap {
@@ -129,20 +173,19 @@ td{
 }
 
 li {
-	cursor: pointer;
-	height: 45px;
-	padding-top: 10px;
-	text-align: center;
-	border-bottom: solid black 1px;
-	border-left: solid black 1px;
+    cursor: pointer;
+    height: 23px;
+    padding-top: 3px;
+    text-align: center;
+    border-top: 1px solid #BBB;
 }
 
-li:last-child {
-	border-bottom: none;
+li:first-child {
+    border-top: none;
 }
 
 li:hover {
-	background-color: #919191;
+    background-color: #919191;
 }
 
 /* Toolbar */

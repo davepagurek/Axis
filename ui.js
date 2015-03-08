@@ -45,7 +45,17 @@ $(document).ready(function() {
         axis.create(newStickman, axis.frame);
     });
 
-    $("#animate").click(function() {
+    // $("#animate").click(function(){
+    //     lastUpdate = new Date().getTime();
+    //     window.requestAnimationFrame(function(){
+    //         while(new Date().getTime() - lastUpdate >= (1/24)){
+    //             lastUpdate = new Date().getTime();
+
+    //         }
+    //     });
+    // });
+
+    $("deletePerson").click(function(){
         
     });
 });

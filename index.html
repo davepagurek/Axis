@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="style.css" />
         <script type="text/javascript" src="bower_components\paper\dist\paper-full.min.js"></script>
+        <script type="text/javascript" src="ui.js"></script>
         <script type="text/paperscript" src="axis.js" canvas="stage"></script>
         <script type="text/paperscript" src="population.js" canvas="stage"></script>
         
@@ -84,25 +85,11 @@
             </div>
         <div id="dwrap">
             <input type="text" name="Frame" id = "Frame" value="0"><br>
-            <button onclick="setFrame()"> Set frame </button>
-            <button onclick="createFrame()" id="createFrame"> Create frame </button>
+            <button id="setFrame"> Set frame </button>
+            <button id="createFrame"> Create frame </button>
+            <button id="createKeyFrame"> Create key frame </button>
             <button >Create Person</button>
         </div>
         <script type="text/javascript" src="bower_components\jquery\dist\jquery.js"></script>
-        <script type="text/javascript">
-            $createFrame = $("#createFrame");
-            var frameClick = function(){
-                $(".frame").each(function(){
-                    $(this).removeClass("selected");
-                });
-                $(this).addClass("selected");
-            };
-            $(".frame").click(frameClick);
-            
-            $createFrame.click(function(){
-                $('#frame_list tr').append('<td><div class="frame"></div></td>');
-                $('#frame_list tr td:last .frame').click(frameClick);
-            });
-        </script>
     </body>
 </html>

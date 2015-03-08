@@ -30,17 +30,23 @@ window.axis = (function() {
         }
     };
 
+    //Recursively draw jointsagain so that they end up in front of lines
     var showJoints = function(element) {
         if (element.points) {
             element.points.forEach(function(point) {
                 showJoints(point);
             });
         }
-        if (element.joint) element.joint.bringToFront();
+        if (element.joint) {
+            element.joint.bringToFront();
+            element.viewJoint = true;
+        }
     };
 
     var createPath = function(element, start, frame) {
         var end = axis.getLocation(element.frames, frame);
+
+        //Use Paper.js to draw the shape
         if (element.type == "line") {
             var line = new Path.Line({
                 from: start,
@@ -62,6 +68,7 @@ window.axis = (function() {
         }
     };
 
+    //Recursively erase paths
     var clear = function(element) {
         if (element.path) element.path.remove();
         if (element.points) {
@@ -71,13 +78,24 @@ window.axis = (function() {
         }
     };
 
+    //Draws an object recursively
     axis.create = function(element, frame, start, root) {
+
+        //Default parameter values
         frame = frame || 0;
         root = root || element
-        start = start || element.location || view.center;
+        start = start || new Point(0,0);
+
+        //Find the end location of the joint for the current element
         var end = axis.getLocation(element.frames, frame);
+
+        //If we had to create the clickable joint for the first time or if it's just being redrawn
         var madeNewJoint = false;
+
+        //If it's a normal element and not the root
         if (!element.root) {
+
+            //Create a new joint if it doesn't yet exist
             if (!element.joint) {
                 var joint = new Path.Circle({
                     radius: 5,
@@ -88,12 +106,20 @@ window.axis = (function() {
                 element.joint = joint;
                 madeNewJoint = true;
             }
+
+            //Move the joint to the position of the end of the line
             element.joint.position = start+end;
 
+            //Hide joints by default
+            element.viewJoint = false;
+
+            //Draw the actual line
             element.path = createPath(element, start, frame);
 
+        //If it's the root
         } else {
-            element.location =element.location || start;
+
+            //Create the joint object if it doesn't already exist
             if (!element.joint) {
                 var joint = new Path.Circle({
                     radius: 5,
@@ -104,30 +130,42 @@ window.axis = (function() {
                 element.joint = joint;
                 madeNewJoint = true;
             }
-            element.joint.position = start;
+            element.joint.position = end;
+            element.viewJoint = false;
         }
 
+        //If we had to make a joint for the first time, add event listeners to it
         if (madeNewJoint) {
-            element.joint.onMouseEnter = function(event) {
-                element.joint.bringToFront();
-                element.joint.fillColor = "lime";
-            };
 
-            element.joint.onMouseLeave = function(event) {
-                if (element.path) {
-                    element.joint.fillColor = "red";
-                } else {
-                    element.joint.fillColor = "orange";
+            //Change colour on mouseover
+            element.joint.onMouseEnter = function(event) {
+                if (element.viewJoint) {
+                    element.joint.bringToFront();
+                    element.joint.fillColor = "lime";
                 }
             };
 
-            element.joint.onMouseDrag = function(event) {
-                if ((element.frames && element.frames[frame]) || element.root) {
-                    if (element.root) {
-                        element.location += event.delta;
+            //Change colour on mouseleave
+            element.joint.onMouseLeave = function(event) {
+                if (element.viewJoint) {
+                    if (element.path) {
+                        element.joint.fillColor = "red";
                     } else {
-                        element.frames[frame] += event.delta;
+                        element.joint.fillColor = "orange";
                     }
+                }
+            };
+
+            //Move and redraw stickman when a joint is dragged
+            element.joint.onMouseDrag = function(event) {
+
+                //Only drag if there is a keyframe to change
+                if ((element.frames && element.frames[frame])) {
+                    //Set the keyframe to the location
+                    element.frames[frame] += event.delta;
+                    console.log(element.frames[frame]);
+
+                    //Redraw
                     clear(root);
                     axis.create(root, frame);
                     showJoints(root);
@@ -135,17 +173,17 @@ window.axis = (function() {
             };
         }
 
+        //Make it so that the outline for the joint is transparent so you can hover over it from a distance
         element.joint.strokeColor.alpha = 0;
 
 
-
+        //Recursively draw children
         if (element.points) {
 
             element.points.forEach(function(point) {
                 axis.create(point, frame, start+end, root);
             });
         }
-    };
 
     //create a new Frame
     axis.createNewFrame = function(element, frame){
@@ -163,9 +201,10 @@ window.axis = (function() {
 
     //createPath(population.stickman.points[0], view.center, 0);
 
+        showJoints(element);
+    };
+
     paper.view.draw();
-
-
 
     return axis;
 }());

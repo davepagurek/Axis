@@ -1,5 +1,6 @@
 var stickman = {
     name: "root",
+    frames: { 0: view.center },
     root: true,
     frames: { 
         0: new Point(0, 0) 
@@ -86,7 +87,7 @@ population.push(stickman);
 // addStickman(stickman.location, stickman.name);
 
 population.forEach(function(element) {
-    axis.create(element, 0, view.center);
+    axis.create(element, 0);
 });
 
 window.setFrame = function(){
@@ -102,3 +103,5 @@ window.createFrame = function(){
         axis.createNewFrame(element, curFrame);
     });
 }
+    axis.create(element, 0);
+});

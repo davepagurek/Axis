@@ -68,7 +68,7 @@ window.axis = (function() {
         //Default parameter values
         frame = frame || 0;
         root = root || element
-        start = start || view.center;
+        start = start || new Point(0,0);
 
         //Find the end location of the joint for the current element
         var end = getLocation(element.frames, frame);
@@ -76,7 +76,7 @@ window.axis = (function() {
         //If we had to create the clickable joint for the first time or if it's just being redrawn
         var madeNewJoint = false;
 
-        //IF it's a normal element and not the root
+        //If it's a normal element and not the root
         if (!element.root) {
 
             //Create a new joint if it doesn't yet exist
@@ -103,9 +103,6 @@ window.axis = (function() {
         //If it's the root
         } else {
 
-            //Set the location of the entire object
-            element.frames = element.frames || { 0: start };
-
             //Create the joint object if it doesn't already exist
             if (!element.joint) {
                 var joint = new Path.Circle({
@@ -117,7 +114,7 @@ window.axis = (function() {
                 element.joint = joint;
                 madeNewJoint = true;
             }
-            element.joint.position = start;
+            element.joint.position = end;
             element.viewJoint = false;
         }
 
@@ -150,6 +147,7 @@ window.axis = (function() {
                 if ((element.frames && element.frames[frame])) {
                     //Set the keyframe to the location
                     element.frames[frame] += event.delta;
+                    console.log(element.frames[frame]);
 
                     //Redraw
                     clear(root);

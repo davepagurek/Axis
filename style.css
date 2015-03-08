@@ -85,13 +85,16 @@ button:focus {
     left:0;
     right:0;
     height:40px;
-    background-color:#444;
+    background-color:#666;
     padding:8px;
 }
 
 #filebar img {
     height:100%;
     width:auto;
+    margin-right:8px;
+    display:inline-block;
+    vertical-align:middle;
 }
 
 

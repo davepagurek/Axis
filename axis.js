@@ -29,7 +29,7 @@ window.axis = (function() {
             }
             //else, perform linear interpolation and calculate the x,y depending on the frame progress between prev and next frames
             else{
-                var ratio = currentFrame/(next - prev);
+                var ratio = (currentFrame-prev)/(next - prev);
                 return new Point(frames[prev].x + ratio*(frames[next].x-frames[prev].x), frames[prev].y + ratio*(frames[next].y-frames[prev].y));
             }
         }

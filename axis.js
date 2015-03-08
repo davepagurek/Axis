@@ -4,7 +4,7 @@ window.axis = (function() {
     axis.frame = 0;
     axis.selected = 0;
     axis.lastUpdate = 0;
-    axis.lastFrame = 10;
+    axis.lastFrame = 0;
 
     var getLocation = function(frames, currentFrame) {
         if (!frames) return new Point(0, 0);
@@ -247,9 +247,9 @@ window.axis = (function() {
                 axis.create(element, axis.frame);
                 paper.view.update();
             });
-            axis.currentFrame++;
+            axis.frame++;
         }
-        if (axis.currentFrame < axis.lastFrame) {
+        if (axis.frame <= axis.lastFrame) {
             requestAnimationFrame(nextFrame);
         } else {
             //axis.select(axis.selected, pop.popualtion);
@@ -257,7 +257,7 @@ window.axis = (function() {
     }
 
     axis.animate = function() {
-        axis.currentFrame = 0;
+        axis.frame = 0;
         axis.lastUpdate = 0;
         hideJoints(axis.selected);
 

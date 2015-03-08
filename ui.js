@@ -85,4 +85,7 @@ $(document).ready(function() {
         return false;
     });
 
+    $("deleteKeyFrame").click(function(){
+
+    });
 });

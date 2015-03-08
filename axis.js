@@ -191,7 +191,7 @@ window.axis = (function() {
             //Move and redraw stickman when a joint is dragged
             element.joint.onMouseDrag = function(event) {
 
-                axis.select(root, pop.population);
+                //axis.select(root, pop.population);
 
                 //Only drag if there is a keyframe to change
                 if ((element.frames && element.frames[axis.frame])) {

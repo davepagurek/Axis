@@ -3,6 +3,8 @@ window.axis = (function() {
 
     axis.frame = 0;
     axis.selected = 0;
+    axis.lastUpdate = 0;
+    axis.lastFrame = 10;
 
     var getLocation = function(frames, currentFrame) {
         if (!frames) return new Point(0, 0);
@@ -233,6 +235,32 @@ window.axis = (function() {
                 axis.createNewKeyframe(point, axis.frame);
             });
         }
+    };
+
+    var nextFrame = function() {
+        console.log("animating: " + new Date().getTime());
+        if (new Date().getTime() - axis.lastUpdate >= 1000/24) {
+            axis.lastUpdate = new Date().getTime();
+            pop.population.forEach(function(element) {
+                axis.clear(element);
+                axis.create(element, axis.frame);
+                paper.view.update();
+            });
+            axis.currentFrame++;
+        }
+        if (axis.currentFrame < axis.lastFrame) {
+            requestAnimationFrame(nextFrame);
+        } else {
+            //axis.select(axis.selected, pop.popualtion);
+        }
+    }
+
+    axis.animate = function() {
+        axis.currentFrame = 0;
+        axis.lastUpdate = 0;
+        hideJoints(axis.selected);
+
+        requestAnimationFrame(nextFrame);
     };
 
     paper.view.draw();

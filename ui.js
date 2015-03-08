@@ -1,5 +1,10 @@
 $(document).ready(function() {
-    $("createKeyFrame").click(function(){
+    $("#createKeyFrame").click(function(){
+        $(".frame").each(function(){
+            if($(this).hasClass("selected")){
+                $(this).addClass("keyframe");
+            }
+        });
         newFrame = document.getElementById("Frame").value;
         population.forEach(function(element) {
             axis.clear(element);

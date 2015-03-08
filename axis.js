@@ -66,6 +66,7 @@ window.axis = (function() {
     };
 
     axis.select = function(element, population) {
+        console.log(element.frames[axis.frame]);
         population.forEach(function(element) {
             hideJoints(element);
         });
@@ -114,7 +115,7 @@ window.axis = (function() {
 
         //Default parameter values
         frame = frame || 0;
-        root = root || element
+        root = root || element;
         start = start || new Point(0,0);
 
         //Find the end location of the joint for the current element
@@ -170,8 +171,6 @@ window.axis = (function() {
         //If we had to make a joint for the first time, add event listeners to it
         if (madeNewJoint) {
 
-            console.log("did this " + new Date().getTime());
-
             //Change colour on mouseover
             element.joint.onMouseEnter = function(event) {
                 if (element.viewJoint) {
@@ -200,7 +199,7 @@ window.axis = (function() {
                 if ((element.frames && element.frames[axis.frame])) {
                     //Set the keyframe to the location
                     element.frames[axis.frame] += event.delta;
-                    //console.log(element.frames[axis.frame]);
+                    //console.log(root.frames[axis.frame]);
 
                     //Redraw
                     axis.clear(root);

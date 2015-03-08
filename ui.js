@@ -8,11 +8,9 @@ $(document).ready(function() {
         //selected frame is now new keyframe
         axis.frame = $(".selected").attr("id");
         //create that frame (redraw, set frame to selected frame)
-        pop.population.forEach(function(element) {
-            axis.createNewKeyframe(element);
-            axis.clear(element);
-            axis.create(element, axis.frame);
-        });
+        axis.createNewKeyframe(axis.selected);
+        axis.clear(axis.selected);
+        axis.create(axis.selected, axis.frame);
 
         axis.select(axis.selected, pop.population);
     });
@@ -65,6 +63,7 @@ $(document).ready(function() {
     //creating a new stickman 
     $("#createPerson").click(function(){
          var newStickman = pop.addStickman();
+         pop.toPaper(newStickman);
          console.log(newStickman);
          pop.population.push(newStickman);
          axis.create(newStickman, axis.frame);
@@ -99,14 +98,16 @@ $(document).ready(function() {
                     $(this).removeClass("keyframe");
                 }
             });
-            pop.population.forEach(function(element){
-                axis.deleteKeyframe(element,axis.frame);
-                axis.clear(element);
-                axis.create(element, axis.frame);
-            });
+            axis.deleteKeyframe(axis.selected,axis.frame);
+            axis.clear(axis.selected);
+            axis.create(axis.selected, axis.frame);
             axis.select(axis.selected, pop.population);
             paper.view.update();
         }
+    });
+
+    $("#save").click(function(){
+        pop.save();
     });
 
     $(window).keydown(function(event){

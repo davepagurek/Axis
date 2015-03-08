@@ -5,18 +5,20 @@ $(document).ready(function() {
                 $(this).addClass("keyframe");
             }
         });
-        //selected frame is now new keyframe
-        axis.frame = $(".selected").attr("id");
-        //create that frame (redraw, set frame to selected frame)
+        newFrame = document.getElementById("Frame").value;
         pop.population.forEach(function(element) {
-            axis.createNewKeyframe(element);
             axis.clear(element);
-            axis.create(element, axis.frame);
+            axis.create(element, newFrame);
+            axis.frame = newFrame;
+        });
+        console.log(newFrame);
+        pop.population.forEach(function(element) {
+            axis.createNewFrame(element, axis.frame, newFrame);
         });
     });
 
     $("#setFrame").click(function(){
-        axis.frame = $(".selected").attr("id");
+        curFrame = document.getElementById("Frame").value;
         pop.population.forEach(function(element) {
             //console.log(axis.getLocation(element.frames, axis.frame));
             axis.clear(element);
@@ -31,15 +33,9 @@ $(document).ready(function() {
             $(this).removeClass("selected");
         });
         $(this).addClass("selected");
-        axis.frame = $(this).attr("id");
-        //TODO: code for redrawing the canvas based on the frame
-        $("#setFrame").click();
     };
     $(".frame").click(frameClick);
 
-    var frameNum = 1;
-
-    //button click -> create frame and add click listener
     $createFrame.click(function(){
         $('#frame_list tr').append('<td><div class="frame"></div></td>');
         $('#frame_list tr td:last .frame').click(frameClick);
@@ -48,9 +44,10 @@ $(document).ready(function() {
         axis.lastframe = frameNum;
         frameNum++;
     });
-    for (var i = 0; i<10; i++){
-        $createFrame.click();
-    }
+
+    var selectClick = function(){
+        axis.select(pop.population[$(this).attr("id").charAt(6)-1], pop.population);
+    };
 
     $("#createPerson").click(function(){
         var newStickman = pop.addStickman();
@@ -58,5 +55,20 @@ $(document).ready(function() {
         pop.population.push(newStickman);
         axis.create(newStickman, axis.frame);
         axis.select(pop.population[pop.population.length - 1], pop.population);
+        $("#element_list ul").append("<li>Dude "+pop.population.length+"</li>");
+        $("#element_list ul li:last").attr("id","person"+pop.population.length);
+        $("#element_list ul li:last").click(selectClick);
     });
+
+    $("li").click(selectClick);
+
+    // $("#animate").click(function(){
+    //     lastUpdate = new Date().getTime();
+    //     window.requestAnimationFrame(function(){
+    //         while(new Date().getTime() - lastUpdate >= (1/24)){
+    //             lastUpdate = new Date().getTime();
+
+    //         }
+    //     });
+    // });
 });

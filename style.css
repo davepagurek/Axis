@@ -11,7 +11,7 @@ html, body {
     height: 100%;
     background-color: #AAA;
 }
-p, li{
+#timeline, li{
     cursor:default;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
@@ -42,7 +42,7 @@ ul{
     top:0;
     left:0;
     right:0;
-    bottom:280px;
+    bottom:240px;
 }
 #stage{
     display: block;
@@ -50,7 +50,7 @@ ul{
     top:50%;
     left:50%;
     margin-left:-360px;
-    margin-top:-220px;
+    margin-top:-210px;
     height: 420px;
     width: 720px;
     background-color: white;
@@ -65,7 +65,7 @@ ul{
     height: 200px; /* .push must be the same height as .footer */
     background-color: #E5E5E5;
     position:fixed;
-    bottom:80px;
+    bottom:40px;
     left:0;
     right:0;
 }
@@ -85,15 +85,18 @@ ul{
     overflow-x:scroll;
 }
 #darkpart{
-    display: inline-block;
+    display: block;
     height: 15px;
     background-color: #929292;
     background: linear-gradient(right, #929292, #67696E);
 }
 #timeline{
     width: 75px;
+    text-align:center;
     height: 15px;
-    display: inline-block;
+    line-height:15px;
+    display: block;
+    font-size:11px;
     background-color: #E5E5E5;
     border-radius: 2px 2px 0 0;
 }
@@ -132,11 +135,11 @@ td{
 
 #toolbar {
     display:block;
-    padding:15px;
+    padding:8px;
     background-color:#D6D6D6;
     position:fixed;
     bottom:0;
     left:0;
     right:0;
-    height: 80px;
+    height: 40px;
 }

@@ -8,9 +8,9 @@
         "frame": true,
         "position": "center",
         "width": 780,
-        "height": 660,
+        "height": 720,
         "min_width": 780,
-        "min_height": 660
+        "min_height": 720
     },
     "scripts": {
         "start": "nodewebkit",

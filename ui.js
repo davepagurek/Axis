@@ -62,7 +62,12 @@ $(document).ready(function() {
         axis.animate();
     });
 
-    $("deleteKeyFrame").click(function(){
-        
+    $("#deleteKeyFrame").click(function(){
+        alert("hi");
+        if(axis.frame != 0) {
+            pop.population.forEach(function(element){
+                axis.deleteKeyframe(element,axis.frame);
+            });
+        }
     });
 });

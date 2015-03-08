@@ -239,7 +239,17 @@ window.axis = (function() {
     };
 
     axis.deleteKeyframe = function(element, delFrame){
-        delete element.frames[""+delFrame];
+        console.log(element);
+        if (element.frames) {
+            if (element.frames[""+delFrame]) {
+                delete element.frames[""+delFrame];
+            } else return;
+        } else return;
+        if (element.points) {
+            element.points.forEach(function(point){
+                axis.deleteKeyframe(point, delFrame);
+            });
+        }
     };
 
     var nextFrame = function() {

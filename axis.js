@@ -204,10 +204,15 @@ window.axis = (function() {
 
                 //axis.select(root, pop.population);
 
-                //Only drag if there is a keyframe to change
-                if ((element.frames && element.frames[axis.frame])) {
+                //Only drag if there is a frame to change
+                if (element.frames) {
                     //Set the keyframe to the location
-                    element.frames[axis.frame] += event.delta;
+                    if (element.frames[axis.frame]) {
+                        element.frames[axis.frame] += event.delta;
+                    } else {
+                        axis.createNewKeyframe(element);
+                        window.makeKeyframe();
+                    }
                     //console.log(root.frames[axis.frame]);
 
                     //Redraw
@@ -237,7 +242,7 @@ window.axis = (function() {
 
     //create a new Frame
     axis.createNewKeyframe = function(element){
-        element.frames[axis.frame] = getLocation(element.frames, axis.frame);
+        if (!element.frames[axis.frames]) element.frames[axis.frame] = getLocation(element.frames, axis.frame);
 
         if (element.points){
             element.points.forEach(function(point){

@@ -110,6 +110,7 @@ window.axis = (function() {
         }
     };
 
+    //Actually delete joints instead of just hiding them
     axis.deleteJoints = function(element) {
         if (element.joint) element.joint.remove();
         if (element.points) {
@@ -260,8 +261,10 @@ window.axis = (function() {
         }
     };
 
+    //Runs every frame when animating
     var nextFrame = function() {
-        console.log("animating: " + new Date().getTime());
+
+        //If it's been 1/24 of a second, render next frame
         if (new Date().getTime() - axis.lastUpdate >= 1000/24) {
             axis.lastUpdate = new Date().getTime();
             pop.population.forEach(function(element) {
@@ -271,20 +274,18 @@ window.axis = (function() {
             });
             axis.frame++;
         }
+
+        //Load the next frame if there are more frames to go
         if (axis.frame <= axis.lastFrame) {
             requestAnimationFrame(nextFrame);
+
+        //Otherwise, select the first frame
         } else {
             axis.frame = 0;
-            $('.frame_list').each(function(){
-                $(".frame").each(function(){
-                    $(this).removeClass("selected");
-                    if ($(this).attr("id") == axis.frame){
-                        $(this).addClass("selected");
-                    }
-                });
-            });
+            window.selectFrame();
+
+            //Redraw elements
             pop.population.forEach(function(element) {
-                //console.log(axis.getLocation(element.frames, axis.frame));
                 axis.clear(element);
                 axis.create(element, axis.frame);
             });
@@ -293,6 +294,7 @@ window.axis = (function() {
         }
     }
 
+    //Begin animating
     axis.animate = function(lastFrame) {
         axis.frame = 0;
         axis.lastUpdate = 0;
@@ -306,4 +308,4 @@ window.axis = (function() {
 
     return axis;
 }());
-
+init();

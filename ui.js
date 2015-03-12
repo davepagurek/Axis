@@ -1,4 +1,4 @@
-$(document).ready(function() {
+window.init = function() {
     $("#createKeyFrame").click(function(){
         var popindex = 0;
         for (var i = 0; i < pop.population.length; i++){
@@ -51,10 +51,10 @@ $(document).ready(function() {
     //button click -> create frame and add click listener
     $createFrame.click(function(){
         $('.frame_list').each(function(){
-            $(this).find('tr').append('<td><div class="frame"></div></td>');
-            $(this).find('tr td:last .frame').click(frameClick);
+            $(this).find('tr').append('<td class="frame"></td>');
+            $(this).find('tr td:last').click(frameClick);
             //add an id that increments for each div
-            $(this).find('tr td:last .frame').attr("id", frameNum);
+            $(this).find('tr td:last').attr("id", frameNum);
             //axis.lastFrame = frameNum;
         });
         // $('#frame_list tr').append('<td><div class="frame"></div></td>');
@@ -63,6 +63,7 @@ $(document).ready(function() {
         // $('#frame_list tr td:last .frame').attr("id", frameNum);
         // //axis.lastFrame = frameNum;
         frameNum++;
+        axis.lastFrame = frameNum-1;
     });
 
     for(var i = 0; i < 10; i++){
@@ -89,19 +90,19 @@ $(document).ready(function() {
          $("#table_list").append("<table class='frame_list'><tr></tr></table>");
          $("#table_list table:last").attr("data-frame", pop.population.length - 1);
          $("#table_list table:last tr").append("<td> <div class='frame keyframe' id ='0'></div></td>");
-         $("#table_list table:last tr td .frame").click(frameClick);
+         $("#table_list table:last tr td").click(frameClick);
          //selects the frame if it is currently selected
          if (axis.frame == 0){
-            $("#table_list table:last tr td .frame").click();
+            $("#table_list table:last tr td").click();
          }
          //adds a frame for every frame already existing
          // console.log($("#table_list table:last tr"));
          var length = $('.frame_list:first-child tr td').length;
          for (var i = 1; i < length; i++){
-            $("#table_list table:last tr").append("<td><div class='frame' id = '" + i + "'></div></td>");
-            $("#table_list table:last tr td:last .frame").click(frameClick);
+            $("#table_list table:last tr").append("<td class='frame' data-id = '" + i + "'></td>");
+            $("#table_list table:last tr td:last").click(frameClick);
             if (axis.frame == i){
-                $("#table_list table:last tr td .frame").click();
+                $("#table_list table:last tr td").click();
              }
          }
 
@@ -196,19 +197,49 @@ $(document).ready(function() {
     });
 
     window.makeFrames = function(popList){
-        var list = Array.prototype.sort.call(Object.keys(popList[0].frames));
-        for(i = 0; i < list[list.length - 1]; i++){
-            $('.frame_list').find('tr').append('<td><div class="frame"></div></td>');
-            $('.frame_list').find('tr td:last .frame').click(frameClick);
-            //add an id that increments for each div
-            $('.frame_list').find('tr td:last .frame').attr("id", frameNum);
-            //axis.lastFrame = frameNum;
-            frameNum++;
+        $('#table_list').html("");
+        frameNum = 0;
 
-            if(popList[0].frames[i+10]){
-                $('.frame_list').find('tr td:last .frame').addClass("keyframe");
+        var totalFrames = [];
+        popList.forEach(function(element) {
+            totalFrames.push.apply(totalFrames, Object.keys(element.frames));
+        });
+        totalFrames = totalFrames.sort();
+
+
+        popList.forEach(function(element) {
+            $('#table_list').append("<table class='frame_list'></table>")
+            $('#table_list .frame_list:last').append("<tr></tr>");
+
+            var list = Array.prototype.sort.call(Object.keys(element.frames));
+            for(i = 0; i < totalFrames[totalFrames.length - 1]; i++){
+                $('#table_list .frame_list:last tr').append('<td class="frame"></td>');
+                $('#table_list .frame_list:last tr').find('td:last').click(frameClick);
+
+                //add an id that increments for each div
+                $('#table_list .frame_list:last tr').find('td:last').attr("data-id", frameNum);
+
+                frameNum++;
+
+                if(element.frames[i]){
+                    $('#table_list .frame_list:last tr').find('td:last').addClass("keyframe");
+                }
+                axis.lastFrame = frameNum;
             }
-            axis.lastFrame = frameNum;
-        }
+        });
+        axis.frame = 0;
+        selectFrame();
     };
-});
+
+    window.selectFrame = function() {
+        $('.frame_list').each(function(){
+            $(".frame").each(function(){
+                $(this).removeClass("selected");
+                if ($(this).attr("data-id") == axis.frame){
+                    $(this).addClass("selected");
+                }
+            });
+        });
+
+    }
+};

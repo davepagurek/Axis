@@ -66,7 +66,6 @@ window.axis = (function() {
     };
 
     axis.select = function(element, population) {
-        console.log(element.frames[axis.frame]);
         population.forEach(function(element) {
             hideJoints(element);
         });

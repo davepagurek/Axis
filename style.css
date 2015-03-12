@@ -187,6 +187,7 @@ td{
 }
 .frame{
     height: 20px;
+    width:10px;
 }
 .frame.selected {
     background-color:#CCF;

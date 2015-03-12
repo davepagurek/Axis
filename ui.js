@@ -23,20 +23,21 @@ window.init = function() {
     });
 
     $createFrame = $("#createFrame");
+
     var frameClick = function(){
         //select every frame on the current frame
-        var currentFrame = $(this).attr("id");
+        var currentFrame = $(this).attr("data-id");
         $('.frame_list').each(function(){
             $(".frame").each(function(){
                 $(this).removeClass("selected");
-                if ($(this).attr("id") == currentFrame){
+                if ($(this).attr("data-id") == currentFrame){
                     $(this).addClass("selected");
                 }
             });
         });
-        axis.frame = $(this).attr("id");
+        //axis.frame = $(this).attr("data-id");
         //redrawing the canvas based on the frame
-        axis.frame = $(".selected").attr("id");
+        axis.frame = $(".selected").attr("data-id");
         pop.population.forEach(function(element) {
             //console.log(axis.getLocation(element.frames, axis.frame));
             axis.clear(element);
@@ -54,7 +55,7 @@ window.init = function() {
             $(this).find('tr').append('<td class="frame"></td>');
             $(this).find('tr td:last').click(frameClick);
             //add an id that increments for each div
-            $(this).find('tr td:last').attr("id", frameNum);
+            $(this).find('tr td:last').attr("data-id", frameNum);
             //axis.lastFrame = frameNum;
         });
         // $('#frame_list tr').append('<td><div class="frame"></div></td>');
@@ -89,7 +90,7 @@ window.init = function() {
          //adding a new table containing the frames
          $("#table_list").append("<table class='frame_list'><tr></tr></table>");
          $("#table_list table:last").attr("data-frame", pop.population.length - 1);
-         $("#table_list table:last tr").append("<td> <div class='frame keyframe' id ='0'></div></td>");
+         $("#table_list table:last tr").append("<td class='frame keyframe' data-id ='0'></td>");
          $("#table_list table:last tr td").click(frameClick);
          //selects the frame if it is currently selected
          if (axis.frame == 0){
@@ -189,30 +190,33 @@ window.init = function() {
         } else if (event.keyCode == ANIMATE) {
             $("#animate").click();
         } else if (event.keyCode == NEXT_FRAME && parseInt(axis.frame)+1<=parseInt(axis.lastFrame)) {
-            $("#" + (parseInt(axis.frame)+1)).click();
+            $("[data-id='" + (parseInt(axis.frame)+1) + "']").click();
         } else if (event.keyCode == PREV_FRAME && parseInt(axis.frame)>0) {
-            $("#" + (axis.frame-1)).click();
+            $("[data-id='" + (axis.frame-1) + "']").click();
         }
         return false;
     });
 
     window.makeFrames = function(popList){
         $('#table_list').html("");
-        frameNum = 0;
 
         var totalFrames = [];
         popList.forEach(function(element) {
+            console.log(Object.keys(element.frames));
             totalFrames.push.apply(totalFrames, Object.keys(element.frames));
         });
-        totalFrames = totalFrames.sort();
-
+        totalFrames = totalFrames.sort(function(a, b) {
+            return parseInt(a)-parseInt(b);
+        });
 
         popList.forEach(function(element) {
+
+            frameNum = 0;
             $('#table_list').append("<table class='frame_list'></table>")
             $('#table_list .frame_list:last').append("<tr></tr>");
 
             var list = Array.prototype.sort.call(Object.keys(element.frames));
-            for(i = 0; i < totalFrames[totalFrames.length - 1]; i++){
+            for(i = 0; i <= totalFrames[totalFrames.length - 1]; i++){
                 $('#table_list .frame_list:last tr').append('<td class="frame"></td>');
                 $('#table_list .frame_list:last tr').find('td:last').click(frameClick);
 

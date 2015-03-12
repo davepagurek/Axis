@@ -1,5 +1,5 @@
 window.init = function() {
-    $("#createKeyFrame").click(function(){
+    window.makeKeyframe = function(){
         var popindex = 0;
         for (var i = 0; i < pop.population.length; i++){
             if (pop.population[i] == axis.selected){
@@ -7,34 +7,33 @@ window.init = function() {
                 break;
             }
         }
-        $(".frame_list[data-frame='" + popindex + "']").find(".frame").each(function(){
-            if($(this).hasClass("selected")){
-                $(this).addClass("keyframe");
-            }
-        });
-        //selected frame is now new keyframe
-        axis.frame = $(".selected").attr("id");
+        $(".frame_list[data-frame='" + popindex + "']").find(".selected").addClass("keyframe");
+
+        axis.frame = $(".selected").attr("data-id");
         //create that frame (redraw, set frame to selected frame)
         axis.createNewKeyframe(axis.selected);
         axis.clear(axis.selected);
         axis.create(axis.selected, axis.frame);
 
         axis.select(axis.selected, pop.population);
-    });
+    };
+    $("#createKeyFrame").click(makeKeyframe);
 
     $createFrame = $("#createFrame");
 
     var frameClick = function(){
         //select every frame on the current frame
         var currentFrame = $(this).attr("data-id");
-        $('.frame_list').each(function(){
-            $(".frame").each(function(){
-                $(this).removeClass("selected");
-                if ($(this).attr("data-id") == currentFrame){
-                    $(this).addClass("selected");
-                }
-            });
-        });
+        //$('.frame_list').each(function(){
+            //$(".frame").each(function(){
+                //$(this).removeClass("selected");
+                //if ($(this).attr("data-id") == currentFrame){
+                    //$(this).addClass("selected");
+                //}
+            //});
+        //});
+        $(".selected").removeClass("selected");
+        $("[data-id='" + currentFrame + "']").addClass("selected");
         //axis.frame = $(this).attr("data-id");
         //redrawing the canvas based on the frame
         axis.frame = $(".selected").attr("data-id");
@@ -98,8 +97,7 @@ window.init = function() {
          }
          //adds a frame for every frame already existing
          // console.log($("#table_list table:last tr"));
-         var length = $('.frame_list:first-child tr td').length;
-         for (var i = 1; i < length; i++){
+         for (var i = 1; i <= axis.lastFrame; i++){
             $("#table_list table:last tr").append("<td class='frame' data-id = '" + i + "'></td>");
             $("#table_list table:last tr td:last").click(frameClick);
             if (axis.frame == i){
@@ -192,7 +190,7 @@ window.init = function() {
         } else if (event.keyCode == NEXT_FRAME && parseInt(axis.frame)+1<=parseInt(axis.lastFrame)) {
             $("[data-id='" + (parseInt(axis.frame)+1) + "']").click();
         } else if (event.keyCode == PREV_FRAME && parseInt(axis.frame)>0) {
-            $("[data-id='" + (axis.frame-1) + "']").click();
+            $("[data-id='" + (parseInt(axis.frame)-1) + "']").click();
         }
         return false;
     });

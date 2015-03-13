@@ -142,6 +142,7 @@ window.pop = (function() {
             pop.toPaper(element);
             axis.create(element);
         });
+        axis.selected = undefined;
         axis.select(pop.population[0], pop.population);
         paper.view.update();
 

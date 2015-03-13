@@ -66,9 +66,10 @@ window.axis = (function() {
     };
 
     axis.select = function(element, population) {
-        population.forEach(function(element) {
-            hideJoints(element);
-        });
+        if (element != axis.selected) {
+            if (axis.selected) hideJoints(axis.selected);
+        }
+
         showJoints(element);
         axis.selected = element;
         paper.view.update();

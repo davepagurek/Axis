@@ -21,6 +21,20 @@ window.init = function() {
 
     $createFrame = $("#createFrame");
 
+    var select = debounce(function() {
+        axis.select(axis.selected, pop.population);
+    }, 3000/24);
+
+    function debounce(fn, delay) {
+        var timer = null;
+        return function () {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                fn.apply(context, args);
+            }, delay);
+        };
+    }
     var frameClick = function(){
         //select every frame on the current frame
         var currentFrame = $(this).attr("data-id");
@@ -36,13 +50,12 @@ window.init = function() {
         $("[data-id='" + currentFrame + "']").addClass("selected");
         //axis.frame = $(this).attr("data-id");
         //redrawing the canvas based on the frame
-        axis.frame = $(".selected").attr("data-id");
+        axis.frame = currentFrame;
         pop.population.forEach(function(element) {
-            //console.log(axis.getLocation(element.frames, axis.frame));
             axis.clear(element);
             axis.create(element, axis.frame);
         });
-        axis.select(axis.selected, pop.population);
+        select();
     };
     $(".frame").click(frameClick);
 
@@ -174,8 +187,29 @@ window.init = function() {
         //alert(this.value);
         pop.open(this.value);
     });
+    function throttle(fn, threshhold, scope) {
+        threshhold || (threshhold = 250);
+        var last,
+        deferTimer;
+        return function () {
+            var context = scope || this;
 
-    $(window).keydown(function(event){
+            var now = +new Date,
+                args = arguments;
+            if (last && now < last + threshhold) {
+                // hold on to it
+                clearTimeout(deferTimer);
+                deferTimer = setTimeout(function () {
+                    last = now;
+                    fn.apply(context, args);
+                }, threshhold);
+            } else {
+                last = now;
+                fn.apply(context, args);
+            }
+        };
+    }
+    $(window).keydown(throttle(function(event){
         var NEXT_FRAME = 190;
         var PREV_FRAME = 188;
         var ANIMATE = 13;
@@ -193,7 +227,7 @@ window.init = function() {
             $("[data-id='" + (parseInt(axis.frame)-1) + "']").click();
         }
         return false;
-    });
+    }, 1000/24));
 
     window.makeFrames = function(popList){
         $('#table_list').html("");

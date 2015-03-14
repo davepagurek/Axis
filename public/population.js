@@ -115,7 +115,7 @@ window.pop = (function() {
         return newStickman;
     };
 
-    pop.save = function(file) {
+    pop.save = function() {
         var writeJson = [];
         pop.population.forEach(function(element){
             var temp = JSON.parse(JSON.stringify(element));
@@ -123,10 +123,7 @@ window.pop = (function() {
             pop.fromPaper(temp);
             writeJson.push(temp);
         });
-        var ostream = require("fs");
-        ostream.writeFile(file, JSON.stringify(writeJson, null, '\t'), function(err){
-            alert("File saved successfully.");
-        });
+        return JSON.stringify(writeJson);
     };
 
     pop.open = function(data) {

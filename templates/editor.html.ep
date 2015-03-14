@@ -50,7 +50,11 @@
                 <img src="/icons/logo-128.png">
             </div>
             <div class="wrapper">
-                <button id="save">Save</button>
+                <button id="save">Save and Export</button>
+                <form id="export" method="POST" action="/save">
+                    <input type="hidden" name="data" id="data" value="" />
+                    <input type="hidden" name="json" id="json" value="" />
+                </form>
             </div>
         </div>
         <div id="toolbar">

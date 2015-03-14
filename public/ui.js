@@ -13,6 +13,9 @@ window.load = function() {
 window.init = function() {
     //Save handlers
     $("#save").click(function() {
+        $("#json").attr("value", pop.save());
+
+
         var canvas = document.getElementById("stage");
         var context = canvas.getContext("2d");
 
@@ -36,11 +39,9 @@ window.init = function() {
                 clearInterval(exportTimer);
                 encoder.finish();
                 var binary_gif = encoder.stream().getData()
-                var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
-                var img = document.createElement("img");
-                img.src = data_url;
-                $("#wrap").html("");
-                $("#wrap").append(img);
+                //var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
+                $("#data").attr("value", encode64(binary_gif));
+                $("#export").submit();
             }
         });
     });
@@ -268,6 +269,7 @@ window.init = function() {
 
     window.makeFrames = function(popList){
         $('#table_list').html("");
+        $("#element_list ul").html("");
 
         var totalFrames = [];
         popList.forEach(function(element) {
@@ -278,7 +280,13 @@ window.init = function() {
             return parseInt(a)-parseInt(b);
         });
 
+        var personNum = 0;
         popList.forEach(function(element) {
+            personNum++;
+
+            $("#element_list ul").append("<li>Dude "+personNum+"</li>");
+            $("#element_list ul li:last").attr("id","person"+personNum);
+            $("#element_list ul li:last").click(selectClick);
 
             frameNum = 0;
             $('#table_list').append("<table class='frame_list'></table>")

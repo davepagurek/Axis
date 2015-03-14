@@ -210,6 +210,10 @@ window.axis = (function() {
 
                 //Only drag if there is a frame to change
                 if (element.frames) {
+                    if (axis.selected != element) {
+                        axis.select(element, pop.population);
+                    }
+
                     //Set the keyframe to the location
                     if (element.frames[axis.frame]) {
                         element.frames[axis.frame] += event.delta;

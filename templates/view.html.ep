@@ -1,0 +1,8 @@
+<html>
+    <head>
+        <title>Axis - Viewing Animation</title>
+    </head>
+    <body>
+        <img src="<%== $url %>" />
+    </body>
+</html>

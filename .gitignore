@@ -1,5 +1,4 @@
-bower_components
-save.json
+public/bower_components
 
 # Logs
 logs

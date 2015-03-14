@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>Axis</title>
+    </head>
+    <body>
+        <h1>Axis</h1>
+        <h2>Recent animations:</h2>
+        % foreach my $animation (@$recent) {
+        <div class="animation"><%== $animation %></div>
+        % }
+    </body>
+</html>

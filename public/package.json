@@ -1,0 +1,25 @@
+{
+    "name": "Axis",
+    "version": "0.0.0",
+    "description": "",
+    "main": "index.html",
+    "window": {
+        "show": true,
+        "frame": true,
+        "position": "center",
+        "width": 780,
+        "height": 720,
+        "min_width": 780,
+        "min_height": 720,
+        "icon": "icons/logo-128.png"
+    },
+    "scripts": {
+        "start": "nodewebkit",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "nodewebkit": "^0.11.6"
+    }
+}

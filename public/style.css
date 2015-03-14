@@ -1,0 +1,232 @@
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    background-color: #AAA;
+}
+#timeline, li{
+    cursor:default;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+ul{
+    list-style-type: none;
+}
+#centered {
+    text-align:center;
+    padding-left: 5px;
+    vertical-align: middle;
+    color: black;
+    font-size: 0.75em;
+    display: table-cell;   
+}
+
+
+
+
+/* Buttons */
+button {
+    background-color:#EEE;
+    border-radius: 4px;
+    border:0;
+    padding:3px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+button:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    background-color:#FFF;
+}
+button:active {
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+    background-color:#DDD;
+    outline:0;
+}
+button:focus {
+    background-color:#DADAFF;
+    outline:0;
+}
+#createFrame {
+    background-color:#55E;
+    color:#FFF;
+}
+#createFrame:hover {
+    background-color:#66F;
+}
+#createFrame:active {
+    background-color:#44D;
+}
+#createKeyframe, #animate {
+    background-color:#77F;
+    color:#FFF;
+}
+#createKeyframe:hover, #animate:hover {
+    background-color:#88F;
+}
+#createKeyrame:active, #animate:active {
+    background-color:#66E;
+}
+
+/* Top bar */
+#filebar {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:40px;
+    background-color:#CCC;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    padding:0;
+}
+
+#filebar .wrapper {
+    display:inline-block;
+    margin-right:8px;
+}
+
+#filebar #dark {
+    background-color:#666;
+}
+
+#filebar img {
+    height:100%;
+    width:auto;
+    display:inline-block;
+    vertical-align:middle;
+    padding:4px;
+}
+
+
+/* Stage */
+
+#wrap {
+    position:fixed;
+    top:40px;
+    left:0;
+    right:0;
+    bottom:200px;
+}
+#stage{
+    display: block;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:-360px;
+    margin-top:-210px;
+    height: 420px;
+    width: 720px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+
+
+
+
+/* Timeline */
+.footer {
+    height: 160px; /* .push must be the same height as .footer */
+    background-color: #E5E5E5;
+    position:fixed;
+    bottom:40px;
+    left:0;
+    right:0;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.3);
+}
+#element_list{
+    vertical-align: top;
+    display: inline-block;
+    background-color: #D6D6D6;
+    width: 200px;
+    height: 165px;
+}
+#table_list{
+    display: block;
+    position:absolute;
+    right:0;
+    left:200px;
+    top:30px;
+}
+#darkpart{
+    display: block;
+    height: 15px;
+    background-color: #929292;
+    background: linear-gradient(right, #929292, #67696E);
+}
+#timeline{
+    width: 75px;
+    text-align:center;
+    height: 15px;
+    line-height:15px;
+    display: block;
+    font-size:11px;
+    background-color: #E5E5E5;
+    border-radius: 2px 2px 0 0;
+}
+#space{
+    height: 15px;
+    background-color: #D6D6D6;
+    box-shadow: 0 1px 0 #888888;
+}
+table{
+    vertical-align: top;
+    border-collapse: collapse;
+    margin-top: 2px;
+    width:auto;
+}
+td{
+    width: 10px;
+    border: 1px solid #BBB;
+    background-color: white;
+}
+.frame{
+    height: 20px;
+    width:10px;
+}
+.frame.selected {
+    background-color:#CCF;
+    border: 1px solid #99C;
+}
+.frame.keyframe:after {
+    content: '\2022';
+    text-align:center;
+    display:block;
+}
+
+li {
+    cursor: pointer;
+    height: 23px;
+    padding-top: 3px;
+    text-align: center;
+    border-top: 1px solid #BBB;
+}
+
+li:first-child {
+    border-top: none;
+}
+
+li:hover {
+    background-color: #919191;
+}
+
+/* Toolbar */
+
+#toolbar {
+    display:block;
+    padding:8px;
+    background-color:#D6D6D6;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height: 40px;
+}

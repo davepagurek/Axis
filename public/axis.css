@@ -4,9 +4,10 @@ body {
     margin:0;
     padding:0;
     font-family: 'Open Sans', sans-serif;
+    background-color:#E5E5E5;
 }
 
-h1 {
+#header h1 {
     font-size: 70px;
     font-weight:lighter;
     margin: 20px 0;
@@ -16,6 +17,31 @@ h1 {
     max-width:200px;
     display:block;
     margin:0 auto;
+}
+
+nav {
+    padding:20px;
+    background-color:#E44;
+    color:#FFF;
+}
+
+nav img {
+    max-width: 30px;
+    vertical-align:bottom;
+    display:inline-block;
+}
+
+nav h1 {
+    font-size:20px;
+    margin:0;
+    line-height:30px;
+    vertical-align:middle;
+}
+
+nav a {
+    color:#FFF;
+    text-decoration:none;
+    display:inline-block;
 }
 
 a.button {
@@ -51,4 +77,9 @@ section:nth-child(even) {
 
 .animation img {
     max-width:400px;
+}
+
+#view img {
+    margin-top:20px;
+    max-width:100%;
 }

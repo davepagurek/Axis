@@ -56,7 +56,7 @@ get '/view/:id' => [id => qr/\w+/] => sub {
 
     if (-e "public/gifs/$name.gif") {
         $self->stash(
-            url => "/gifs/$name.gif"
+            name => $name
         );
         $self->render(template => 'view');
     } else {

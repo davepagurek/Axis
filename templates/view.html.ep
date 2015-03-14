@@ -1,8 +1,24 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Axis - Viewing Animation</title>
+        <link rel="stylesheet" type="text/css" href="/axis.css" />
     </head>
     <body>
-        <img src="<%== $url %>" />
+        <nav>
+            <h1>
+                <a href="/">
+                    <img src="/icons/logo-128.png" />
+                    Axis
+                </a>
+            </h1>
+        </nav>
+        <section id="view">
+            <img src="/gifs/<%== $name %>.gif" />
+            <p>
+                <a class="button" href="/editor/<%== $name %>">Fork</a>
+                <a class="button" href="/">Back</a>
+            </p>
+        </section>
     </body>
 </html>

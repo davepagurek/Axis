@@ -11,6 +11,49 @@ window.load = function() {
 
 
 window.init = function() {
+    //Save handlers
+    $("#save").click(function() {
+        var canvas = document.getElementById("stage");
+        var context = canvas.getContext("2d");
+
+        var encoder = new GIFEncoder();
+        encoder.setRepeat(0);
+        encoder.setDelay(1000/24);
+        encoder.start();
+
+        var i=0;
+        var exportTimer = setInterval(function() {
+            axis.frame = i;
+            pop.population.forEach(function(element) {
+                axis.clear(element);
+                axis.create(element, axis.frame);
+            }, 1000/24);
+            paper.view.update();
+            encoder.addFrame(context);
+
+            i++;
+            if (i>axis.lastFrame) {
+                clearInterval(exportTimer);
+                encoder.finish();
+                var binary_gif = encoder.stream().getData()
+                var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
+                var img = document.createElement("img");
+                img.src = data_url;
+                $("#wrap").html("");
+                $("#wrap").append(img);
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
+    //Editor handlers
     window.makeKeyframe = function(){
         var popindex = 0;
         for (var i = 0; i < pop.population.length; i++){

@@ -6,6 +6,10 @@
         <link rel="stylesheet" type="text/css" href="/style.css" />
         <script type="text/javascript" src="/bower_components/paper/dist/paper-full.min.js"></script>
         <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="/jsgif/b64.js"></script>
+        <script type="text/javascript" src="/jsgif/LZWEncoder.js"></script>
+        <script type="text/javascript" src="/jsgif/NeuQuant.js"></script>
+        <script type="text/javascript" src="/jsgif/GIFEncoder.js"></script>
         <script type="text/paperscript" src="/axis.js" canvas="stage"></script>
         <script type="text/paperscript" src="/population.js" canvas="stage"></script>
         <script type="text/javascript" src="/ui.js"></script>
@@ -46,10 +50,7 @@
                 <img src="/icons/logo-128.png">
             </div>
             <div class="wrapper">
-                <!--
-                <button id="save">Save</button><input type="file" style="display:none" id="saveDialogue" nwsaveas />
-                <button id="open">Open</button><input type="file" style="display:none;" id="openDialogue" />
-                -->
+                <button id="save">Save</button>
             </div>
         </div>
         <div id="toolbar">

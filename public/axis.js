@@ -6,6 +6,9 @@ window.axis = (function() {
     axis.lastUpdate = 0;
     axis.lastFrame = 0;
 
+    var background = new Path.Rectangle(view.bounds);
+    background.fillColor = 'white';
+
     var getLocation = function(frames, currentFrame) {
         if (!frames) return new Point(0, 0);
         //if frame exists, return it

@@ -4,20 +4,18 @@ use File::Slurp;
 
 use strict;
 
+#sub startup {
+    #my $self = shift;
+    #$ENV{MOJO_REVERSE_PROXY} = 1;
+#}
 
 get '/' => sub {
     my $self = shift;
 
-    my @files =
-        sort { -M $a <=> -M $b }
-        grep { -f }
-        glob("public/gifs/*.gif");
-
-    @files = map {
-        /public\/gifs\/(.+).gif/;
-        $1;
-    } @files;
-
+    my $index = read_file("animations/index.dat");
+    my @files = split(/[\r\n ]+/, $index);
+    use Data::Dumper;
+    print Dumper @files;
     @files = @files[0 .. 4] unless (scalar @files <= 4);
 
     $self->stash(
@@ -88,6 +86,13 @@ post '/save' => sub {
     binmode $fh;
     print $fh $data;
     close $fh;
+
+    my $index = read_file("animations/index.dat");
+    $index = $name . "\n" . $index;
+    my @files = split(/[\r\n ]+/, $index);
+    @files = @files[0 .. 4] unless (scalar @files <= 4);
+    open $fh, '>', "animations/index.dat" or die $!;
+    print $fh join("\n", @files);
 
     $self->redirect_to("/view/$name");
 };

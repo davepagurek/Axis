@@ -1,3 +1,15 @@
+window.load = function() {
+    var content = $("#content").html();
+
+    //If string is more than just whitespace
+    if (content && /\S/.test(content)) {
+        console.log(content);
+        pop.open(content);
+    }
+
+};
+
+
 window.init = function() {
     window.makeKeyframe = function(){
         var popindex = 0;
@@ -169,24 +181,6 @@ window.init = function() {
         }
     });
 
-    $("#save").click(function(){
-        //pop.save();
-        $("#saveDialogue").click();
-    });
-
-    $("#saveDialogue").change(function() {
-        pop.save(this.value);
-    });
-
-    $("#open").click(function(){
-        //pop.open();
-        $("#openDialogue").click();
-    });
-
-    $("#openDialogue").change(function() {
-        //alert(this.value);
-        pop.open(this.value);
-    });
     function throttle(fn, threshhold, scope) {
         threshhold || (threshhold = 250);
         var last,

@@ -127,11 +127,10 @@ window.pop = (function() {
         ostream.writeFile(file, JSON.stringify(writeJson, null, '\t'), function(err){
             alert("File saved successfully.");
         });
-    }
+    };
 
-    pop.open = function(file) {
-        var istream = require("fs");
-        var temp = JSON.parse(istream.readFileSync(file));
+    pop.open = function(data) {
+        var temp = JSON.parse(data);
         // console.log(temp);
         pop.population.forEach(function(element){
             axis.clear(element);
@@ -162,3 +161,4 @@ window.pop = (function() {
 
     return pop;
 }());
+load();

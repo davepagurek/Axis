@@ -2,10 +2,21 @@
 A stick figure animator for keyframed animation
 
 ## Setup
+
+Prerequisites:
+- Perl and CPAN
+- Node and NPM
+
 Run the following commands:
 
 ```
-npm install
-npm install bower -g
-bower install paper
+bower install
+cpan install Mojolicious::Lite
+cpan install File::Slurp
+```
+
+## Running the server
+
+```
+perl index.pl daemon
 ```

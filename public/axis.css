@@ -59,6 +59,14 @@ a.button:hover {
     background-color:#F66;
 }
 
+a.button.secondary {
+    color:#333;
+    background-color:#FFF;
+}
+a.button.secondary:hover {
+    color:#F66;
+}
+
 
 
 section {

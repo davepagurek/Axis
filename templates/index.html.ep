@@ -9,7 +9,10 @@
             <h1>Axis</h1>
             <h3>Bring your ideas to life</h3>
             <img src="/icons/logo-300.png" />
-            <a class="button" href="/editor">Get started</a>
+            <p>
+                <a class="button" href="/editor">Get started</a>
+                <a class="button secondary" href="/about">Learn More</a>
+            </p>
         </section>
         <section>
             <h2>Recent animations:</h2>

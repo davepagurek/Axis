@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>About Axis</title>
+        <link rel="stylesheet" type="text/css" href="/axis.css" />
+    </head>
+    <body>
+        <nav>
+            <h1>
+                <a href="/">
+                    <img src="/icons/logo-128.png" />
+                    Axis
+                </a>
+            </h1>
+        </nav>
+        <section id="about">
+            <h2>About Axis</h2>
+            <p>Axis was made at EngHack Winter 2015 by Dave Pagurek, Abhishek Madan, Steven Kong, and Saksham Sachdev. </p>
+            <p>Add blank frames to the timeline by pressing the <strong>Create Frame</strong> button or pressing <strong>N</strong>. Create keyframes with the <strong>Create Keyframe</strong> button or by pressing <strong>Space</strong>. On a selected keyframe, you can move around a stick figure by <strong>clicking on its name</strong> in the timeline and then <strong>clicking and dragging its joints.</strong></p>
+            <h2>Demo</h2>
+            <iframe width="640" height="360" src="https://www.youtube.com/embed/pzOE4WDH-To?rel=0" frameborder="0" allowfullscreen></iframe>
+        </section>
+    </body>
+</html>

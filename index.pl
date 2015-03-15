@@ -24,6 +24,11 @@ get '/' => sub {
     $self->render(template => 'index');
 };
 
+get '/about' => sub {
+    my $self = shift;
+    $self->render(template => 'about');
+};
+
 get '/editor/:id' => [id => qr/\w+/] => sub {
     my $self = shift;
     my $source = "animations/" . $self->param("id") . ".json";

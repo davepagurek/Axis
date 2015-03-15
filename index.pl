@@ -12,16 +12,60 @@ use strict;
 get '/' => sub {
     my $self = shift;
 
-    my $index = read_file("animations/index.dat");
-    my @files = split(/[\r\n ]+/, $index);
-    use Data::Dumper;
-    print Dumper @files;
+    #my $index = read_file("animations/index.dat");
+    #my @files = split(/[\r\n ]+/, $index);
+    #use Data::Dumper;
+    #print Dumper @files;
+    #@files = @files[0 .. 4] unless (scalar @files <= 4);
+
+    my @files =
+        sort { -M $a <=> -M $b }
+        grep { -f }
+        glob("public/gifs/*.gif");
+
+    @files = map {
+        /public\/gifs\/(.+).gif/;
+        $1;
+    } @files;
+
     @files = @files[0 .. 4] unless (scalar @files <= 4);
 
     $self->stash(
         recent => \@files
     );
     $self->render(template => 'index');
+};
+
+get '/archives/:page' => [page => qr/\d+/] => sub {
+    my $self = shift;
+    my $page = $self->param("page");
+
+    my @files =
+        sort { -M $a <=> -M $b }
+        grep { -f }
+        glob("public/gifs/*.gif");
+
+    @files = map {
+        /public\/gifs\/(.+).gif/;
+        $1;
+    } @files;
+
+    $page--;
+    if (scalar @files < $page*5) {
+        $page = 0;
+        @files = @files[0 .. 4] unless (scalar @files <= 4);
+    } elsif ($page*5+4 < scalar @files) {
+        @files = @files[$page*5 .. $page*5+4];
+    } else {
+        @files = @files[$page*5 .. scalar @files - 1];
+    }
+
+    $self->stash(
+        recent => \@files,
+        page => $page+1,
+        length => scalar @files
+    );
+    $self->render(template => 'archives');
 };
 
 get '/about' => sub {
@@ -92,12 +136,12 @@ post '/save' => sub {
     print $fh $data;
     close $fh;
 
-    my $index = read_file("animations/index.dat");
-    $index = $name . "\n" . $index;
-    my @files = split(/[\r\n ]+/, $index);
-    @files = @files[0 .. 4] unless (scalar @files <= 4);
-    open $fh, '>', "animations/index.dat" or die $!;
-    print $fh join("\n", @files);
+    #my $index = read_file("animations/index.dat");
+    #$index = $name . "\n" . $index;
+    #my @files = split(/[\r\n ]+/, $index);
+    #@files = @files[0 .. 4] unless (scalar @files <= 4);
+    #open $fh, '>', "animations/index.dat" or die $!;
+    #print $fh join("\n", @files);
 
     $self->redirect_to("/view/$name");
 };

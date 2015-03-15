@@ -26,6 +26,7 @@
                 </p>
             </div>
             % }
+            <p><a class="button secondary" href="/archives/2">View older</a></p>
         </section>
     </body>
 </html>

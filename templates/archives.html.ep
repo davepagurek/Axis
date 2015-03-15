@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Axis - Viewing Animation</title>
+        <link rel="stylesheet" type="text/css" href="/axis.css" />
+    </head>
+    <body>
+        <nav>
+            <h1>
+                <a href="/">
+                    <img src="/icons/logo-128.png" />
+                    Axis
+                </a>
+            </h1>
+        </nav>
+        <section>
+            % foreach my $animation (@{$recent}) {
+            <div class="animation">
+                <img src="/gifs/<%== $animation %>.gif" />
+                <p>
+                    <a class="button" href="/view/<%== $animation %>">View</a>
+                    <a class="button" href="/editor/<%== $animation %>">Fork</a>
+                </p>
+            </div>
+            % }
+            <p>
+                % if ($page>1) {
+                <a class="button" href="/archives/<%== $page-1 %>">Newer</a>
+                % }
+
+                <a class="button secondary" href="/">Back</a>
+
+                % if (($page-1)*5<$length-1) {
+                <a class="button" href="/archives/<%== $page+1 %>">Older</a>
+                % }
+            </p>
+        </section>
+    </body>
+</html>

@@ -24,8 +24,6 @@ window.init = function() {
         encoder.setDelay(1000/24);
         encoder.start();
         $("body").addClass("exporting");
-        $("#stage").attr("width", 720);
-        $("#stage").attr("height", 480);
 
         var i=0;
         var exportTimer = setInterval(function() {

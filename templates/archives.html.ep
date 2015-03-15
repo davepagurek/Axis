@@ -30,7 +30,7 @@
 
                 <a class="button secondary" href="/">Back</a>
 
-                % if (($page-1)*5<$length-1) {
+                % if (($page-1)*5+4<$length-1) {
                 <a class="button" href="/archives/<%== $page+1 %>">Older</a>
                 % }
             </p>

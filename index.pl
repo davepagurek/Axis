@@ -50,6 +50,7 @@ get '/archives/:page' => [page => qr/\d+/] => sub {
         $1;
     } @files;
 
+    my $length = scalar @files;
     $page--;
     if (scalar @files < $page*5) {
         $page = 0;
@@ -63,7 +64,7 @@ get '/archives/:page' => [page => qr/\d+/] => sub {
     $self->stash(
         recent => \@files,
         page => $page+1,
-        length => scalar @files
+        length => $length
     );
     $self->render(template => 'archives');
 };

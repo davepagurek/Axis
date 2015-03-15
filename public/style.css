@@ -12,7 +12,11 @@
 }
 html, body {
     height: 100%;
-    background-color: #AAA;
+    background-color: #EEE;
+    transition: all linear 0.3s;
+}
+body.exporting {
+    background-color:#F77;
 }
 #timeline, li{
     cursor:default;
@@ -55,29 +59,20 @@ button:active {
     outline:0;
 }
 button:focus {
-    background-color:#DADAFF;
+    background-color:#FDD;
     outline:0;
 }
-#createFrame {
-    background-color:#55E;
+button.accent {
+    background-color:#E44;
     color:#FFF;
 }
-#createFrame:hover {
-    background-color:#66F;
+button.accent:hover {
+    background-color:#F66;
 }
-#createFrame:active {
-    background-color:#44D;
+button.accent:focus {
+    background-color:#D33;
 }
-#createKeyframe, #animate {
-    background-color:#77F;
-    color:#FFF;
-}
-#createKeyframe:hover, #animate:hover {
-    background-color:#88F;
-}
-#createKeyrame:active, #animate:active {
-    background-color:#66E;
-}
+
 
 /* Top bar */
 #filebar {

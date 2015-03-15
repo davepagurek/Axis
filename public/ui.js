@@ -23,6 +23,7 @@ window.init = function() {
         encoder.setRepeat(0);
         encoder.setDelay(1000/24);
         encoder.start();
+        $("body").addClass("exporting");
 
         var i=0;
         var exportTimer = setInterval(function() {
@@ -41,6 +42,7 @@ window.init = function() {
                 var binary_gif = encoder.stream().getData()
                 //var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
                 $("#data").attr("value", encode64(binary_gif));
+                window.onbeforeunload = null;
                 $("#export").submit();
             }
         });
@@ -324,3 +326,20 @@ window.init = function() {
 
     }
 };
+
+
+var confirmOnPageExit = function (e) {
+    // If we haven't been passed the event get the window.event
+    e = e || window.event;
+
+    var message = 'Are you sure you want to leave this page? Any unexported work will be lost!';
+
+    // For IE6-8 and Firefox prior to version 4
+    if (e) {
+        e.returnValue = message;
+    }
+
+    // For Chrome, Safari, IE8+ and Opera 12+
+    return message;
+};
+window.onbeforeunload = confirmOnPageExit;

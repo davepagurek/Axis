@@ -34,7 +34,11 @@ Run the following commands:
 bower install
 cpanm Mojolicious::Lite
 cpanm File::Slurp
+cpanm DBI
+cpanm DBD::SQLite
 ```
+
+Create `animations.db` using the commands in `db-setup.sql`.
 
 Additionally, <strong>install jsgif</strong> into `public/jsgif`.
 

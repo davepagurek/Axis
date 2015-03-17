@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Axis - Viewing Animation</title>
+    <title>Axis - Archives Page <%== $page %></title>
         <link rel="stylesheet" type="text/css" href="/axis.css" />
     </head>
     <body>

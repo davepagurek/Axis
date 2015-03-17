@@ -22,29 +22,16 @@ my $dbh = db_connect();
 get '/' => sub {
     my $self = shift;
 
+    # Get the 5 most recent animations
     my $sth = $dbh->prepare('SELECT id FROM animations ORDER BY id DESC LIMIT 5') or die "Couldn't prepare statement: " . $dbh->errstr;
     $sth->execute() or die "Couldn't execute statement: " . $sth->errstr;
-    #my @rows = $sth->fetchrow_array();
-    #use Data::Dumper;
-    #print Dumper @rows;
 
+    # Put their ids into an array
     my @files = ();
-
     while (my $row = $sth->fetchrow_array()) {
         push(@files, $row);
     }
 
-    #my @files =
-        #sort { -M $a <=> -M $b }
-        #grep { -f }
-        #glob("public/gifs/*.gif");
-
-    #@files = map {
-        #/public\/gifs\/(.+).gif/;
-        #$1;
-    #} @files;
-
-    #@files = @files[0 .. 4] unless (scalar @files <= 4);
 
     $self->stash(
         recent => \@files
@@ -56,45 +43,36 @@ get '/archives/:page' => [page => qr/\d+/] => sub {
     my $self = shift;
     my $page = $self->param("page");
 
-    my $sth = $dbh->prepare('SELECT id FROM animations ORDER BY id DESC OFFSET ? LIMIT 5') or die "Couldn't prepare statement: " . $dbh->errstr;
-    $sth->execute(($page-1)*5) or die "Couldn't execute statement: " . $sth->errstr;
-    #my @rows = $sth->fetchrow_array();
-    #use Data::Dumper;
-    #print Dumper @rows;
+    # Get the total number of rows
+    my $sth = $dbh->prepare('SELECT COUNT(id) FROM animations') or die "Couldn't prepare statement: " . $dbh->errstr;
+    $sth->execute() or die "Couldn't execute statement: " . $sth->errstr;
+    my $length = $sth->fetchrow_array();
 
-    my @files = ();
+    # Show up to five posts on the page if there are posts to view
+    if (($page-1)*5 < $length) {
 
-    while (my $row = $sth->fetchrow_array()) {
-        push(@files, $row);
+        # Get five posts offset by the given page
+        $sth = $dbh->prepare('SELECT id FROM animations ORDER BY id DESC LIMIT 5 OFFSET ?') or die "Couldn't prepare statement: " . $dbh->errstr;
+        $sth->execute(($page-1)*5) or die "Couldn't execute statement: " . $sth->errstr;
+
+        # Put the ids into an array
+        my @files = ();
+        while (my $row = $sth->fetchrow_array()) {
+            push(@files, $row);
+        }
+
+
+        $self->stash(
+            recent => \@files,
+            page => $page,
+            length => $length
+        );
+        $self->render(template => 'archives');
+
+    # Otherwise, show an error
+    } else {
+        $self->render(template => 'error', status => 404);
     }
-
-    #my @files =
-        #sort { -M $a <=> -M $b }
-        #grep { -f }
-        #glob("public/gifs/*.gif");
-
-    #@files = map {
-        #/public\/gifs\/(.+).gif/;
-        #$1;
-    #} @files;
-
-    #my $length = scalar @files;
-    #$page--;
-    #if (scalar @files < $page*5) {
-        #$page = 0;
-        #@files = @files[0 .. 4] unless (scalar @files <= 4);
-    #} elsif ($page*5+4 < scalar @files) {
-        #@files = @files[$page*5 .. $page*5+4];
-    #} else {
-        #@files = @files[$page*5 .. scalar @files - 1];
-    #}
-
-    $self->stash(
-        recent => \@files,
-        page => $page,
-        length => $length
-    );
-    $self->render(template => 'archives');
 };
 
 get '/about' => sub {
@@ -130,11 +108,26 @@ get '/view/:id' => [id => qr/\d+/] => sub {
     my $self = shift;
     my $name = $self->param("id");
 
+    # If it's a valid file, load it
     if (-e "public/gifs/$name.gif") {
+
+        # Get the number of views the animation has
+        my $sth = $dbh->prepare('SELECT views FROM animations WHERE id = ?') or die "Couldn't prepare statement: " . $dbh->errstr;
+        $sth->execute($name) or die "Couldn't execute statement: " . $sth->errstr;
+        my $views = $sth->fetchrow_array();
+
+        # Add a view
+        $views++;
+        $sth = $dbh->prepare('UPDATE animations SET views = views + 1 WHERE id = ?') or die "Couldn't prepare statement: " . $dbh->errstr;
+        $sth->execute($name) or die "Couldn't execute statement: " . $sth->errstr;
+
         $self->stash(
-            name => $name
+            name => $name,
+            views => $views
         );
         $self->render(template => 'view');
+
+    # Otherwise, show a 404 page
     } else {
         $self->render(template => 'error', status => 404);
     }
@@ -143,15 +136,12 @@ get '/view/:id' => [id => qr/\d+/] => sub {
 post '/save' => sub {
     my $self = shift;
 
-    #Generate random name for file
-    #my @chars = ("A".."Z", "a".."z");
-    #my $name = "";
-    #$name .= $chars[rand @chars] for 1..20;
-
+    # Add a new entry to the db
     my $sth = $dbh->prepare('INSERT INTO animations (views, user) VALUES (0, 0)');
     $sth->execute() or die "Couldn't execute statement: " . $sth->errstr;
-    my $name = $dbh->sqlite_last_insert_rowid();
 
+    # Get the id we just added
+    my $name = $dbh->sqlite_last_insert_rowid();
 
 
     my $json = $self->param("json");

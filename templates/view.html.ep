@@ -16,6 +16,9 @@
         <section id="view">
             <img src="/gifs/<%== $name %>.gif" />
             <p>
+                <%== $views . " view" . ($views==1?"":"s") %>
+            </p>
+            <p>
                 <a class="button" href="/editor/<%== $name %>">Fork</a>
                 <a class="button" href="/">Back</a>
             </p>

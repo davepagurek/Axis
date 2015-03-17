@@ -2,6 +2,7 @@ public/bower_components
 public/jsgif
 public/gifs
 animations
+animations.db
 credentials.pl
 
 # Logs

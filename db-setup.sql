@@ -1,0 +1,10 @@
+CREATE TABLE `animations` (
+	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`views`	INTEGER,
+	`user`	INTEGER
+);
+
+CREATE TABLE `users` (
+	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`ip`	TEXT
+);

@@ -128,7 +128,6 @@ window.pop = (function() {
 
     pop.open = function(data) {
         var temp = JSON.parse(data);
-        // console.log(temp);
         pop.population.forEach(function(element){
             axis.clear(element);
             axis.deleteJoints(element);
